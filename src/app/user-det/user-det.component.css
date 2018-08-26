@@ -1,0 +1,15 @@
+.mat-card{
+    width:200%;
+    margin-top :20px;
+    margin-left: 30px;
+}
+
+.mat-header-cell,.mat-card-title{
+    font-size:20px;
+    color:rgb(1, 53, 150);
+}
+
+td.mat-cell, .mat-option-text,.mat-select-value{
+    color:rgb(44, 99, 201) ;
+    font-size:16px;
+}

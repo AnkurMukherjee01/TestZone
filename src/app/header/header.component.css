@@ -1,0 +1,44 @@
+.pageHeader{
+    font-size: 40px;
+    margin-left: 40px;
+}
+.header {
+    font-size: 40px;
+    background: #00ae7b;
+    background: linear-gradient(45deg,#00ae7b,#0081bf);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00ae7b",endColorstr="#0081bf",GradientType=1);
+    display: block;
+    height: 80px;
+    padding-top: 20px;
+    color:white;
+    font-family: Noto Sans;
+}
+.menu{
+    margin-right: 30px;
+    float: right;
+    text-align: right !important;
+    font-size: 30px !important;
+    margin-top: -45px
+}
+.siteName{
+    width:60%;
+}
+
+.button{
+    font-size: 40px !important; 
+    height: 70px;
+}
+button:hover{
+    color:black;
+    background-color: #64a3c0;
+    border-bottom: 3px solid rgb(0, 255, 85);
+}
+button:click{
+    color:black;
+    background-color: #64a3c0;
+    border-bottom-color:rgb(0, 255, 85);
+    border-bottom-width: 3px;
+}
+i{
+    cursor: pointer;
+}

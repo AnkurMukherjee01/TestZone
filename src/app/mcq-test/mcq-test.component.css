@@ -1,0 +1,28 @@
+.header{
+    text-align: center;
+}
+i{
+    cursor: pointer;
+    font-size:20px;
+}
+.test-assigned-header{
+    font-size: 30px ;
+    float:center;
+    color:rgb(2, 42, 117);
+}
+td.mat-cell{
+    color:rgb(41, 97, 201) !important;
+    font-size: 20px;
+}
+th.mat-header-cell{
+    color:rgb(2, 42, 117) !important;
+    font-size: 16px;
+}
+rankForm{
+    width:90%;
+    padding: 10px;
+}
+
+test-rank-table{
+    padding:20px;
+}

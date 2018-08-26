@@ -1,0 +1,79 @@
+.mainContent{
+    width:100%;
+    height:800px;
+    align-content: center;
+    align-items: center;
+    padding-left:10%;
+    padding-top:30px;
+    color: #0080ca !important;
+}
+.header{
+    padding:20px;
+    color:rgb(2, 42, 117);
+    font-size:30px;
+}
+.test-card{
+    height:700px;
+    width:80%;
+    
+}
+.duration{
+    float:right;
+    padding-right: 10%;
+}
+.card-header{
+    font-size:40px !important; 
+    color: rgb(41, 97, 201);
+}
+.mat-card-title{
+    font-size:28px !important; 
+    color: rgb(2, 41, 112) !important;
+    font-weight: 500;
+}
+.wrap-mat-radio-label{
+    font-size:22px !important; 
+    color: rgb(1, 51, 145) !important;
+}
+.radio-group {
+    display: inline-flex;
+    flex-direction: column;
+    
+  }
+  
+  .radio-button {
+    margin: 5px;
+    font-size:27px !important; 
+    color: rgb(41, 97, 201) !important;
+  }
+.submitButton{
+    background-color: #0080ca;
+    float:right;
+    text-align: center;
+    width: 100px;
+    color:white;
+}
+.submitButtonLeft{
+    background-color: #0080ca;
+    float:left;
+    text-align: center;
+    width: 100px;
+    color:white;
+}
+.submitButtonFinal{
+    background-color: #0080ca;
+    float:middle;
+    text-align: center;
+    width: 200px;
+    font-size:20px;
+    color:white;
+    margin-top: 80px;
+}
+.test-card-result,.result-det{
+    text-align: center;
+    font-size: 40px;
+    font-weight: 500;
+    color:rgb(2, 42, 117);
+}
+.result-line{
+    padding-top:20px;
+}

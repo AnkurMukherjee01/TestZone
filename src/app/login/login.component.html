@@ -1,0 +1,89 @@
+<div class="login">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                <mat-tab-group [selectedIndex]="selectedTab">
+                    <mat-tab label="Login">
+                      <ng-template matTabContent>
+                          <form class="login-form">
+                              <input matInput type="text" placeholder="email or phone" name="loginEmail" [(ngModel)]="model.email"/>
+                              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                                <mat-icon>close</mat-icon>
+                              </button>
+                            
+                              <input matInput type="text" placeholder="password" name="loginPassword" [(ngModel)]="model.password"/>
+                              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                                <mat-icon>close</mat-icon>
+                              </button>
+
+                              <button mat-raised-button class="submitButton" (click)="login();reset();">Login</button>
+                            </form>
+                            
+                      </ng-template>
+                    </mat-tab>
+                    <mat-tab label="Sign Up">
+                      <ng-template matTabContent>
+                          <form class="login-form">
+                            <div>
+                              <span class="sameLineContent">
+                              <input matInput type="text" placeholder="First Name" name="signUpFirstName" [(ngModel)]="signUpModel.firstName"/>
+                              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                                <mat-icon>close</mat-icon>
+                              </button>
+                            </span>
+                            <span class="sameLineContent">
+                                <input matInput type="text" placeholder="Last Name" name="signUpLastName" [(ngModel)]="signUpModel.lastName"/>
+                                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                                  <mat-icon>close</mat-icon>
+                                </button>
+                              </span>
+                            </div>
+                              <input matInput type="text" placeholder="email or phone" name="signUpEmail" [(ngModel)]="signUpModel.email"/>
+                              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                                <mat-icon>close</mat-icon>
+                              </button>
+                            
+                              <input matInput type="text" placeholder="password" name="signUpPassword" [(ngModel)]="signUpModel.password"/>
+                              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                                <mat-icon>close</mat-icon>
+                              </button>
+                              <input matInput type="text" placeholder="Confirm Password" name="signUpConfirmPassword" [(ngModel)]="signUpModel.confirmPassword"/>
+                              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                                <mat-icon>close</mat-icon>
+                              </button>
+                              <button mat-raised-button class="submitButton" (click)="signup();reset();">Sign Up</button>
+                            </form>
+                      </ng-template>
+                    </mat-tab>
+                    <mat-tab label="Change Password">
+                      <ng-template matTabContent>
+                          <form class="change-password-form">
+                              <input matInput type="text" placeholder="email or phone" name="changeEmail" [(ngModel)]="changePassword.email"/>
+                              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                                <mat-icon>close</mat-icon>
+                              </button>
+                            
+                              <input matInput type="text" placeholder="old password" name="changePassword" [(ngModel)]="changePassword.oldPassword"/>
+                              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                                <mat-icon>close</mat-icon>
+                              </button>
+
+                              <input matInput type="text" placeholder="new password" name="changePassword" [(ngModel)]="changePassword.newPassword"/>
+                              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                                <mat-icon>close</mat-icon>
+                              </button>
+                              <input matInput type="text" placeholder="Confirm Password" name="changeConfirmPassword" [(ngModel)]="changePassword.confirmPassword"/>
+                              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                                <mat-icon>close</mat-icon>
+                              </button>
+                              <button mat-raised-button class="passwordResetButton" (click)="ResetPassword();reset();">Reset Password</button>
+                            </form>
+                            
+                      </ng-template>
+                    </mat-tab>
+                  </mat-tab-group>               
+            </mat-card-title>
+        
+          </mat-card-header>
+    </mat-card>
+</div>

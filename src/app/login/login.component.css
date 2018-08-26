@@ -1,0 +1,27 @@
+.login{
+    margin-right: 150px;
+    margin-top: 50px;
+max-width: 600px; 
+    font-size: 16px ;
+}
+.login-background{
+    background-image: url('../../assets/20180716_131404-EFFECTS.jpg')
+}
+
+.submitButton{
+    background-color: #0080ca;
+    float:right;
+    text-align: center;
+    width: 100px;
+    color:white;
+}
+.passwordResetButton{
+    background-color: #0080ca;
+    float:right;
+    text-align: center;
+    width: 130px;
+    color:white;
+}
+.sameLineContent{
+    width: 50%;
+}

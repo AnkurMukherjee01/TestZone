@@ -1,0 +1,54 @@
+<div id="fullscreen">
+<div class="header" *ngIf="marks < 0">
+<span>Test Name: {{test.testName}}</span>
+<span class="duration">Time Remaining: {{timeleft|minuteSeconds}}</span>
+
+</div>
+<div class="mainContent" *ngIf="marks < 0">
+  <mat-card class="test-card">
+      <mat-card-header>
+          <mat-card-title>{{currentQuestion.question}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-radio-group class="radio-group" [(ngModel)]="currentAnswer.answer">
+          <mat-radio-button class="radio-button" *ngFor="let option of currentQuestion.options" [value]="option" (change)="onSelectionChange(option)">
+              <span class="wrap-mat-radio-label">
+            {{option}}
+            </span>
+          </mat-radio-button>
+        </mat-radio-group>
+        
+        <div>
+        <button mat-raised-button class="submitButtonLeft" *ngIf="counter > 0" (click)="previous()">Previous</button>
+        <button mat-raised-button class="submitButton" *ngIf="counter < test.tests.length-1" (click)="next()">Next</button>
+        </div>
+<div>
+        <button mat-raised-button class="submitButtonFinal"  (click)="submit()">Submit</button>
+      </div>
+      </mat-card-content>
+  </mat-card>
+</div>
+<div class="testResult" *ngIf="marks >= 0" >
+  <mat-card class="test-card-result">
+      <mat-card-content class="result-det">
+        <div class="result-line">
+          <span>Test Name:
+          <span>{{test.testName}}</span>
+          </span>
+        </div>
+        <div class="result-line">
+            <span>Marks:
+            <span>{{marks}}/{{totalMarks}}</span>
+            </span>
+          </div>
+          <div *ngIf="comments?.length>0"  class="result-line">Improvement Needed</div>
+          <div *ngFor="let com of comments"  class="result-line">
+            <span>{{com}}</span>
+          </div>
+          <div>
+            <button mat-raised-button class="submitButtonFinal"  (click)="ok()">Ok</button>
+          </div>
+      </mat-card-content>
+  </mat-card>
+</div>
+</div>
