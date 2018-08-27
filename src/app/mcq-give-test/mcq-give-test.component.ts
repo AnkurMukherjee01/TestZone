@@ -26,8 +26,8 @@ export class MinuteSecondsPipe implements PipeTransform {
 })
 export class McqGiveTestComponent implements OnInit {
 
-  test:any;
-  counter:number;
+  test:any={};
+  counter:number=-1;
   currentQuestion:any='';
   timeleft:any =0;
   answers:Answers[]=[];
