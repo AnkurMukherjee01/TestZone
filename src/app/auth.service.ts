@@ -10,7 +10,7 @@ const httpOptions = {
 @Injectable()
 export class AuthService {
 
-  baseUrl: 'http://localhost:3000/';
+  baseUrl: 'http://139.59.74.138/';
 
   constructor(private http: HttpClient) {
   }
@@ -18,7 +18,7 @@ export class AuthService {
   attemptAuth(loginDet:Login): Observable<object> {
     
     console.log('attempAuth ::'+JSON.stringify(loginDet));
-    return this.http.post('http://localhost:3000/api/login', JSON.stringify(loginDet),httpOptions);
+    return this.http.post('https://139.59.74.138/api/login', JSON.stringify(loginDet),httpOptions);
   }
 
 }
