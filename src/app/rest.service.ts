@@ -9,7 +9,7 @@ import { CreateTestModel} from "./create-test-model";
 import {Answers} from './answers';
  
 const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*' })
 };
  
 @Injectable()
