@@ -10,15 +10,15 @@ const httpOptions = {
 @Injectable()
 export class AuthService {
 
-  baseUrl: 'http://139.59.74.138/';
-
+ // baseUrl: 'http://139.59.74.138/';
+  baseUrl: 'http://localhost:3000/';
   constructor(private http: HttpClient) {
   }
 
   attemptAuth(loginDet:Login): Observable<object> {
     
     console.log('attempAuth ::'+JSON.stringify(loginDet));
-    return this.http.post('https://139.59.74.138/api/login', JSON.stringify(loginDet),httpOptions);
+    return this.http.post('https://www.completeanalytics.in/api/login', JSON.stringify(loginDet),httpOptions);
   }
 
 }
