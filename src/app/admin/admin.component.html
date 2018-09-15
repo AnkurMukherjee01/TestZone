@@ -27,7 +27,6 @@
   <div class="mainContent">
       <mat-card class="approval-card">
           <mat-card-header>
-              <div mat-card-avatar class="card-header"></div>
               <mat-card-title>Login Approval</mat-card-title>
           </mat-card-header>
           <mat-card-content>
@@ -108,7 +107,6 @@
 <div class="col-sm-3">
   <mat-card class="create-test-card">
     <mat-card-header>
-        <div mat-card-avatar class="card-header"></div>
         <mat-card-title>Create Test</mat-card-title>
     </mat-card-header>
     <mat-card-content>
@@ -210,10 +208,18 @@
             <mat-tab label="MCQ">
               <ng-template matTabContent>
                   <form class="assign-form">
-                      <div  *ngFor="let test of testList">
-                        <span class="testName">{{test}}</span>
-                        <mat-form-field class="assign-full-width">
-                          <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="studentControlMcq" [matAutocomplete]="auto">
+                      <div  *ngFor="let test of testList; let index = index" class="row">
+
+                        <div class="testName col-sm-3">{{test}}</div>
+                        <div class="assign-full-width col-sm-7">
+                        <span class="dot" *ngIf="testName[index]?.email?.length>0">
+                            <i class="fa fa-check assigned" aria-hidden="true" (click)="assignTest(index,test)" ></i>
+                        </span>
+                        <mat-form-field class="assign">
+                            
+                            
+                          <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="studentControlMcq" [matAutocomplete]="auto" 
+                          [(ngModel)]="testName[index].email" >
                           <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onAssignSelect($event,test)">
                             <mat-option *ngFor="let option of optionsMcqFilter | async" [value]="option.email" >
                               {{option.name}}
@@ -221,7 +227,10 @@
                           </mat-autocomplete>
                          
                         </mat-form-field>
+                      </div>
+                      <div class="col-sm-2">
                         <i class="fa fa-trash" aria-hidden="true" (click)="deleteTest(test)"></i>
+                      </div>
                       </div>
                       </form>
                 </ng-template>

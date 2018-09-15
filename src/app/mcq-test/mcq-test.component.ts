@@ -49,7 +49,7 @@ export class McqTestComponent implements OnInit {
        // this.getFoods();
       // console.log(data);
        this.dataSource.data =data['testDet'].reverse();
-       this.testNameList= (data['testDet'].filter(x => x.marks >0).map(y=>y.testName)).filter(function (el, index, array) { 
+       this.testNameList= (data['testDet'].filter(x => x.marks >-1).map(y=>y.testName)).filter(function (el, index, array) { 
         return array.indexOf (el) == index;
       });
         return true;
@@ -70,9 +70,9 @@ start(element){
 }
 compare(a,b) {
   if (a.marks < b.marks)
-    return -1;
-  if (a.marks > b.marks)
     return 1;
+  if (a.marks > b.marks)
+    return -1;
   return 0;
 }
 getMarks(selected){

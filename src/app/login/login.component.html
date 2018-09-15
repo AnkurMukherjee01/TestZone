@@ -1,89 +1,113 @@
 <div class="login">
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>
-                <mat-tab-group [selectedIndex]="selectedTab">
-                    <mat-tab label="Login">
-                      <ng-template matTabContent>
-                          <form class="login-form">
-                              <input matInput type="text" placeholder="email or phone" name="loginEmail" [(ngModel)]="model.email"/>
-                              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                                <mat-icon>close</mat-icon>
-                              </button>
-                            
-                              <input matInput type="text" placeholder="password" name="loginPassword" [(ngModel)]="model.password"/>
-                              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                                <mat-icon>close</mat-icon>
-                              </button>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <mat-tab-group [selectedIndex]="selectedTab" *ngIf="!forgotPassword">
+          <mat-tab label="Login">
+            <ng-template matTabContent>
+              <form class="login-form" novalidate>
+                <input matInput type="email" placeholder="email" name="loginEmail" [(ngModel)]="model.email" required #loginEmail="ngModel"  pattern="[^ @]*@[^ @]*"/>
+                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-error *ngIf="loginEmail.invalid && (loginEmail.dirty || loginEmail.touched)">Please Enter a Valid Email</mat-error>
 
-                              <button mat-raised-button class="submitButton" (click)="login();reset();">Login</button>
-                            </form>
-                            
-                      </ng-template>
-                    </mat-tab>
-                    <mat-tab label="Sign Up">
-                      <ng-template matTabContent>
-                          <form class="login-form">
-                            <div>
-                              <span class="sameLineContent">
-                              <input matInput type="text" placeholder="First Name" name="signUpFirstName" [(ngModel)]="signUpModel.firstName"/>
-                              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                                <mat-icon>close</mat-icon>
-                              </button>
-                            </span>
-                            <span class="sameLineContent">
-                                <input matInput type="text" placeholder="Last Name" name="signUpLastName" [(ngModel)]="signUpModel.lastName"/>
-                                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                                  <mat-icon>close</mat-icon>
-                                </button>
-                              </span>
-                            </div>
-                              <input matInput type="text" placeholder="email or phone" name="signUpEmail" [(ngModel)]="signUpModel.email"/>
-                              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                                <mat-icon>close</mat-icon>
-                              </button>
-                            
-                              <input matInput type="text" placeholder="password" name="signUpPassword" [(ngModel)]="signUpModel.password"/>
-                              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                                <mat-icon>close</mat-icon>
-                              </button>
-                              <input matInput type="text" placeholder="Confirm Password" name="signUpConfirmPassword" [(ngModel)]="signUpModel.confirmPassword"/>
-                              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                                <mat-icon>close</mat-icon>
-                              </button>
-                              <button mat-raised-button class="submitButton" (click)="signup();reset();">Sign Up</button>
-                            </form>
-                      </ng-template>
-                    </mat-tab>
-                    <mat-tab label="Change Password">
-                      <ng-template matTabContent>
-                          <form class="change-password-form">
-                              <input matInput type="text" placeholder="email or phone" name="changeEmail" [(ngModel)]="changePassword.email"/>
-                              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                                <mat-icon>close</mat-icon>
-                              </button>
-                            
-                              <input matInput type="text" placeholder="old password" name="changePassword" [(ngModel)]="changePassword.oldPassword"/>
-                              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                                <mat-icon>close</mat-icon>
-                              </button>
+                <input matInput type="password" placeholder="password" name="loginPassword" [(ngModel)]="model.password" required  #loginPassword="ngModel"/>
+                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-error *ngIf="loginPassword.invalid && (loginPassword.dirty || loginPassword.touched)">Password Cannot be Empty</mat-error>
+                <button mat-raised-button class="submitButton" (click)="login();" [disabled]="loginEmail.invalid  || (loginPassword.invalid )">Login</button>
+              </form>
+              <button mat-button class="forgetLink" (click)="forgetLinkClick()">Forgot Password?</button>
+            </ng-template>
+          </mat-tab>
+          <mat-tab label="Sign Up">
+            <ng-template matTabContent>
+              <form class="login-form">
+                <div>
+                  <span class="sameLineContent">
+                    <input matInput type="text" placeholder="First Name" name="signUpFirstName" [(ngModel)]="signUpModel.firstName" required #signUpFirstName="ngModel"/>
+                    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                    <mat-error *ngIf="signUpFirstName.invalid && (signUpFirstName.dirty || signUpFirstName.touched)">First Name can not be empty</mat-error>
+                  </span>
+                  <span class="sameLineContent">
+                    <input matInput type="text" placeholder="Last Name" name="signUpLastName" [(ngModel)]="signUpModel.lastName" required #signUpLastName="ngModel"/>
+                    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                    <mat-error *ngIf="signUpLastName.invalid && (signUpLastName.dirty || signUpLastName.touched)">Last Name can not be empty</mat-error>
+                  </span>
+                </div>
+                <input matInput type="email" placeholder="email" name="signUpEmail" [(ngModel)]="signUpModel.email" required pattern="[^ @]*@[^ @]*" #signUpEmail="ngModel"/>
+                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-error *ngIf="signUpEmail.invalid && (signUpEmail.dirty || signUpEmail.touched)">Invalid Email</mat-error>
+                <input matInput type="password" placeholder="password" name="signUpPassword" [(ngModel)]="signUpModel.password" required #signUpPassword="ngModel"/>
+                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-error *ngIf="signUpPassword.invalid && (signUpPassword.dirty || signUpPassword.touched)">Password should be of minimum 8 charecter</mat-error>
+                <input matInput type="password" placeholder="Confirm Password" name="signUpConfirmPassword" [(ngModel)]="signUpModel.confirmPassword"
+                required  minlength="8" #signUpConfirmPassword="ngModel"/>
+                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-error *ngIf="signUpConfirmPassword.invalid && (signUpConfirmPassword.dirty || signUpConfirmPassword.touched)">Password should be of minimum 8 charecter</mat-error>
+                <button mat-raised-button class="submitButton" (click)="signup();" [disabled]="signUpFirstName.invalid  || 
+                (signUpLastName.invalid ) ||(signUpEmail.invalid ) ||
+                (signUpPassword.invalid )|| (signUpConfirmPassword.invalid)">Sign Up</button>
+              </form>
+            </ng-template>
+          </mat-tab>
+          <mat-tab label="Change Password">
+            <ng-template matTabContent>
+              <form class="change-password-form">
+                <input matInput type="email" placeholder="email or phone" name="changeEmail" [(ngModel)]="changePassword.email" required pattern="[^ @]*@[^ @]*" #changeEmail="ngModel"/>
+                
+                <mat-error *ngIf="changeEmail.invalid && (changeEmail.dirty || changeEmail.touched)">Invalid Email</mat-error>
 
-                              <input matInput type="text" placeholder="new password" name="changePassword" [(ngModel)]="changePassword.newPassword"/>
-                              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                                <mat-icon>close</mat-icon>
-                              </button>
-                              <input matInput type="text" placeholder="Confirm Password" name="changeConfirmPassword" [(ngModel)]="changePassword.confirmPassword"/>
-                              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                                <mat-icon>close</mat-icon>
-                              </button>
-                              <button mat-raised-button class="passwordResetButton" (click)="ResetPassword();reset();">Reset Password</button>
-                            </form>
-                            
-                      </ng-template>
-                    </mat-tab>
-                  </mat-tab-group>               
-            </mat-card-title>
-        
-          </mat-card-header>
-    </mat-card>
+                <input matInput type="password" placeholder="old password" name="changeOldPassword" [(ngModel)]="changePassword.oldPassword"
+                required #changeOldPassword="ngModel"/>
+                <mat-error *ngIf="changeOldPassword.invalid && (changeOldPassword.dirty || changeOldPassword.touched)">Password can not be empty</mat-error>
+
+                <input matInput type="password" placeholder="new password" name="changeNewPassword" [(ngModel)]="changePassword.newPassword"
+                required #changeNewPassword="ngModel"  minlength="8"/>
+                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-error *ngIf="changeNewPassword.invalid && (changeNewPassword.dirty || changeNewPassword.touched)">Password should be of minimum 8 charecter</mat-error>
+
+                <input matInput type="password" placeholder="Confirm Password" name="changeConfirmPassword" [(ngModel)]="changePassword.confirmPassword"
+                required #changeConfirmPassword="ngModel"  minlength="8"/>
+                <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-error *ngIf="changeConfirmPassword.invalid && (changeConfirmPassword.dirty ||changeConfirmPassword.touched)">Password should be of minimum 8 charecter</mat-error>
+
+                <button mat-raised-button class="passwordResetButton" (click)="ResetPassword()" [disabled]="changeEmail.invalid || 
+                changeOldPassword.invalid ||(changeNewPassword.invalid ) ||
+                (changeConfirmPassword.invalid )">Reset Password</button>
+              </form>
+
+            </ng-template>
+          </mat-tab>
+        </mat-tab-group>
+        <form *ngIf="forgotPassword">
+          <h5 class="forgotPassHeader">Forget Password? Please submit your email</h5>
+            <input matInput type="email" placeholder="email" name="changeEmail" [(ngModel)]="forgotPasswordEmail" required pattern="[^ @]*@[^ @]*" #forgotEmail="ngModel"/>
+            <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-error *ngIf="forgotEmail.invalid && (forgoteEmail.dirty || forgotEmail.touched)">Invalid Email</mat-error>
+            <button mat-raised-button class="passwordResetButton" (click)="GeneratePassword();reset();" [disabled]="forgotEmail.invalid">Reset Password</button>
+          </form>
+            
+      </mat-card-title>
+
+    </mat-card-header>
+  </mat-card>
 </div>

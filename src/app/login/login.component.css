@@ -25,3 +25,13 @@ max-width: 600px;
 .sameLineContent{
     width: 50%;
 }
+.forgot-password-form{
+    display: none;
+}
+.forgetLink{
+    cursor: pointer;
+    color:#0080ca;
+}
+.forgotPassHeader{
+    color:#0080ca;
+}

@@ -9,7 +9,8 @@ import {MatSnackBar, MatTabChangeEvent} from '@angular/material';
 import {CreateTestModel} from '../create-test-model';
 import {FormControl} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
-
+import {AssignTest} from '../assign-test'
+ 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -29,6 +30,7 @@ studentControlMcq = new FormControl();
   optionsMcq: string[] ;
   optionsMcqFilter: Observable<string[]>;
   batchName:String="abv";
+  testName:AssignTest[]=[]
 
 
 
@@ -42,7 +44,14 @@ studentControlMcq = new FormControl();
      data=>{
        console.log(data);
 this.testList=data.test.
-filter(o=>o["testType"]=='M').map(o1=>o1["testName"])
+filter(o=>o["testType"]=='M').map(o1=>{
+  this.testName.push(new AssignTest(
+    o1["testName"],
+    ""
+  ))
+  return o1["testName"]
+})
+
      },
      error=>{
 
@@ -69,6 +78,9 @@ filter(o=>o["testType"]=='M').map(o1=>o1["testName"])
     this._restService.updatependingapproval(this.approval).subscribe(
       data => {
         this.pendingApproval();
+        this.snackBar.open(data['success'],'Dismiss', {
+          duration: 5000,
+        });
       },
       error=>{
         this.snackBar.open(error.error['errorMessage'],'Dismiss', {
@@ -223,7 +235,13 @@ filter(o=>o["testType"]=='M').map(o1=>o1["testName"])
 
         this._restService.getTestName().subscribe(
           data=>{
-     this.testList=data.test.filter(o=>o["testType"]=='A').map(o1=>o1["testName"])
+     this.testList=data.test.filter(o=>o["testType"]=='A').map(o1=>
+      { 
+        this.testName.push(new AssignTest(
+        o1["testName"],
+        ""
+      ));
+        return o1["testName"]})
           },
           error=>{
      
@@ -253,7 +271,24 @@ filter(o=>o["testType"]=='M').map(o1=>o1["testName"])
 
   onAssignSelect(option,test){
     console.log(option);
-    this._restService.assignTest(option['option'].value,test).subscribe(
+    console.log(JSON.stringify(this.testName))
+    // this._restService.assignTest(option['option'].value,test).subscribe(
+    //   data => {
+    //     this.snackBar.open(data['success'],'Dismiss', {
+    //       duration: 5000,
+    //     });
+    //   },
+    //   error=>{
+    //     this.snackBar.open(error.error['message'],'Dismiss', {
+    //       duration: 5000,
+    //     });
+    //   }
+    // );
+  }
+
+  deleteTest(test){
+    console.log("test"+test);
+    this._restService.deleteTest(test).subscribe(
       data => {
         this.snackBar.open(data['success'],'Dismiss', {
           duration: 5000,
@@ -267,13 +302,14 @@ filter(o=>o["testType"]=='M').map(o1=>o1["testName"])
     );
   }
 
-  deleteTest(test){
-    console.log("test"+test);
-    this._restService.deleteTest(test).subscribe(
+  assignTest(index,test){
+    console.log(index);
+    this._restService.assignTest(this.testName[index]['email'],test).subscribe(
       data => {
         this.snackBar.open(data['success'],'Dismiss', {
           duration: 5000,
         });
+        this.testName[index]['email']="";
       },
       error=>{
         this.snackBar.open(error.error['message'],'Dismiss', {

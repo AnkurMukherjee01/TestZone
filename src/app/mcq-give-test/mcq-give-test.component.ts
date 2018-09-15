@@ -35,6 +35,8 @@ export class McqGiveTestComponent implements OnInit {
   marks:number;
   totalMarks:Number;
   comments:String[]=[];
+  answeredTest:number=0;
+
 
   globalListenFunc: Function;
   
@@ -43,7 +45,7 @@ export class McqGiveTestComponent implements OnInit {
     console.log(event);
     event.preventDefault();
      event.stopPropagation();
-    let keyPressed = event.keyCode;
+    let keyPressed = event.keyCode; 
     if (keyPressed === 27) {
        console.log('Escape!');
     }
@@ -71,7 +73,7 @@ export class McqGiveTestComponent implements OnInit {
     screenfull.on('window:keyup',function(e){
       e.stopPropagation();
     })
-    let elem =  document.body; 
+    let elem =  document.getElementById('fullscreen');; 
     let methodToBeInvoked = elem.requestFullscreen || 
      elem.webkitRequestFullScreen || elem['mozRequestFullscreen'] 
      || 
@@ -99,7 +101,7 @@ export class McqGiveTestComponent implements OnInit {
     });
 this.currentQuestion=data["tst"][0]["tests"][this.counter];
 for(var i=0;i<data["tst"][0]["tests"].length;i++){
-  this.answers.push(new Answers(data["tst"][0]["tests"][i].question,''));
+  this.answers.push(new Answers(data["tst"][0]["tests"][i].question,""));
 }
     //  this.dataSource.data =data['testDet'];
     //   return true;
@@ -119,12 +121,17 @@ for(var i=0;i<data["tst"][0]["tests"].length;i++){
   
     this.currentQuestion=this.test["tests"][this.counter];
     this.currentAnswer.answer=this.answers[this.counter].answer;
-   // console.log(this.counter++)
+   console.log(this.answers);
+   if(this.counter == this.answers.length-1){
+this.answeredTest=this.answers.filter(o=>o.answer!="").length;
+console.log(this.answers.filter(o=>o.answer!=""));
+   }
   }
   previous(){
     this.counter--;
     this.currentQuestion=this.test["tests"][this.counter];
     this.currentAnswer.answer=this.answers[this.counter].answer;
+    console.log(this.answers)
   }
 
   onSelectionChange(option){
@@ -134,6 +141,7 @@ for(var i=0;i<data["tst"][0]["tests"].length;i++){
     this._restService.updateAnswer({question:this.currentQuestion.question,answer:option},this.timeleft,this.route.snapshot.paramMap.get('testName'),new Date(this.route.snapshot.paramMap.get('assignedDate'))).subscribe(
       data => {
        console.log(data);
+       
       // z
       },
       error => {

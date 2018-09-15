@@ -34,6 +34,9 @@ export class LoginComponent implements OnInit {
   signUpModel = new SignUp('','','','','')
   changePassword = new ChangepasswordModel('','','','')
   selectedTab=0;
+  forgotPassword:boolean=false;
+  forgotPasswordEmail:String=''
+
   constructor(private router: Router,private _restService: RestService,private authService: AuthService, private token: TokenStorage, private snackBar: MatSnackBar) {
     if(this.token.getToken()!=null)
     {
@@ -75,6 +78,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate([ '/mcq']);
         }
       }
+      this.reset();
        },
        error => {
          if(error.status=401)
@@ -99,6 +103,8 @@ export class LoginComponent implements OnInit {
        this.snackBar.open(data['success'],'Dismiss', {
         duration: 5000,
       });
+      this.reset();
+      this.selectedTab=0;
         return true;
       },
       error => {
@@ -116,6 +122,7 @@ export class LoginComponent implements OnInit {
    );
   }
   ResetPassword(){
+    console.log(this.changePassword.email)
     this._restService.changePassword(this.changePassword).subscribe(
       data => {
         // refresh the list
@@ -124,7 +131,44 @@ export class LoginComponent implements OnInit {
        this.snackBar.open(data['success'],'Dismiss', {
         duration: 5000,
       });
+      this.reset();
       this.selectedTab=0
+        return true;
+      },
+      error => {
+        console.log(error);
+        if(error.status=='409'|| error.status=='401'){
+          this.snackBar.open(error.error['failed'],'Dismiss', {
+            duration: 5000,
+          });
+          console.log(this.changePassword.email)
+        }
+        else{
+        console.error(error.data);
+        return Observable.throw(error);
+        }
+      }
+   );
+  }
+  reset(){
+    this.model= new Login('','',)
+    this.signUpModel = new SignUp('','','','','')
+    this.changePassword = new ChangepasswordModel('','','','')
+    this.forgotPasswordEmail=''
+  }
+  forgetLinkClick(){
+    this.forgotPassword=true;
+  }
+  GeneratePassword(){
+    this._restService.forgetPassword(this.forgotPasswordEmail).subscribe(
+      data => {
+        // refresh the list
+       // this.getFoods();
+       console.log(data);
+       this.snackBar.open(data['success'],'Dismiss', {
+        duration: 5000,
+      });
+      this.forgotPassword=false;
         return true;
       },
       error => {
@@ -141,12 +185,5 @@ export class LoginComponent implements OnInit {
       }
    );
   }
-  reset(){
-    this.model= new Login('','',)
-    this.signUpModel = new SignUp('','','','','')
-    this.changePassword = new ChangepasswordModel('','','','')
-  }
-
-  
        
 }

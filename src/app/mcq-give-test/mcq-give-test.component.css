@@ -13,7 +13,7 @@
     font-size:30px;
 }
 .test-card{
-    height:700px;
+    min-height:700px;
     width:80%;
     
 }
@@ -77,3 +77,21 @@
 .result-line{
     padding-top:20px;
 }
+.question{
+    font-size:22px !important; 
+    color: rgb(1, 51, 145) !important;
+}
+.answer{
+    font-size:20px !important; 
+    color: rgb(3, 72, 201) !important; 
+}
+#fullscreen{
+    width:100%;
+    align-content: center;
+    background-color: whitesmoke;
+}
+html { background-color: inherit; } 
+.leaflet-container:-webkit-full-screen {
+    width: 100% !important;
+    height: 100% !important;
+  }

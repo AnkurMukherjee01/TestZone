@@ -10,8 +10,8 @@
     padding-left:30px;
 }
 .info-card{
-    min-width: 270px;
-    min-height: 140px;
+    min-width: 200px;
+    min-height: 100px;
     text-align: center;
 }
 .infoCardValueClean{
@@ -58,7 +58,8 @@
     font-size:20px;
     color:rgb(1, 53, 150);
     font-weight: 600;
-    font-style:italic;
+    padding-left: 35%;
+   
 }
 td.mat-cell, .mat-option-text,.mat-select-value{
     color:rgb(44, 99, 201) ;
@@ -93,6 +94,9 @@ td.mat-cell, .mat-option-text,.mat-select-value{
     width:60%;
     padding-left:10px;
 }
+.assign{
+    width:90%;
+}
 .fa-trash{
     padding-left: 10%;
 font-size: 26px;
@@ -105,3 +109,17 @@ cursor: pointer;
     width:100%;
     font-size:20px;
 }
+.dot {
+    height: 25px;
+    width: 25px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 2px 3px #ddd;
+    float:right;
+    cursor: pointer;
+  }
+  .assigned{
+    margin:5px;
+
+  }
