@@ -23,6 +23,8 @@ import { McqGiveTestComponent } from './mcq-give-test/mcq-give-test.component';
 import { MinuteSecondsPipe } from './mcq-give-test/mcq-give-test.component';
 import { McqTestQuestionComponent } from './mcq-test-question/mcq-test-question.component';
 import { UserDetComponent } from './user-det/user-det.component';
+import { QuestionCheckerComponent } from './question-checker/question-checker.component';
+import { AdminStudentComponent } from './admin-student/admin-student.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { UserDetComponent } from './user-det/user-det.component';
     McqGiveTestComponent,
     MinuteSecondsPipe,
     McqTestQuestionComponent,
-    UserDetComponent
+    UserDetComponent,
+    QuestionCheckerComponent,
+    AdminStudentComponent
   ],
   imports: [
     BrowserModule,

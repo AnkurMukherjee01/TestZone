@@ -10,7 +10,7 @@ import {TokenStorage} from '../token.storage';
 })
 export class HeaderComponent {
  
-  constructor(private router: Router,private _restService: RestService,private token: TokenStorage) { }
+  constructor(private router: Router,private _restService: RestService,public token: TokenStorage) { }
   signout(){
     this.token.signOut();
     this.router.navigate(['']);

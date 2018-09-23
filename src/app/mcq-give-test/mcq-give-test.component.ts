@@ -6,6 +6,7 @@ import {MCQ} from '../mcq';
 import {Router,ActivatedRoute, Params,  } from '@angular/router';
 import {Answers} from '../answers';
 import * as screenfull from 'screenfull';
+import { McqTestComponent } from '../mcq-test/mcq-test.component';
 
 @Pipe({
   name: 'minuteSeconds'
@@ -31,11 +32,12 @@ export class McqGiveTestComponent implements OnInit {
   currentQuestion:any='';
   timeleft:any =0;
   answers:Answers[]=[];
-  currentAnswer:Answers=new Answers('','');
+  currentAnswer:Answers=new Answers('','','NA');
   marks:number;
   totalMarks:Number;
   comments:String[]=[];
   answeredTest:number=0;
+  //testUnAuthorized:Boolean=false;
 
 
   globalListenFunc: Function;
@@ -88,7 +90,7 @@ export class McqGiveTestComponent implements OnInit {
   //     element.webkitRequestFullScreen();
   // }
   const sourceTwo = timer(1000, 1000);
-  this._restService.fetchTestDet(this.route.snapshot.paramMap.get('testName')).subscribe(
+  this._restService.fetchTestDet(this.route.snapshot.paramMap.get('testName'),new Date(this.route.snapshot.paramMap.get('assignedDate'))).subscribe(
     data => {
      this.test=data["tst"][0];
      console.log(data);
@@ -101,7 +103,7 @@ export class McqGiveTestComponent implements OnInit {
     });
 this.currentQuestion=data["tst"][0]["tests"][this.counter];
 for(var i=0;i<data["tst"][0]["tests"].length;i++){
-  this.answers.push(new Answers(data["tst"][0]["tests"][i].question,""));
+  this.answers.push(new Answers(data["tst"][0]["tests"][i].question,"","NA"));
 }
     //  this.dataSource.data =data['testDet'];
     //   return true;
@@ -110,6 +112,12 @@ for(var i=0;i<data["tst"][0]["tests"].length;i++){
     },
     error => {
       console.error(error.data);
+      if(error.status==409)
+         {
+          screenfull.exit();
+          this.router.navigate([ '/mcq']);
+         }
+         else
       this.router.navigate([{ path: '', component: LoginComponent }]);
     }
  );
@@ -122,10 +130,10 @@ for(var i=0;i<data["tst"][0]["tests"].length;i++){
     this.currentQuestion=this.test["tests"][this.counter];
     this.currentAnswer.answer=this.answers[this.counter].answer;
    console.log(this.answers);
-   if(this.counter == this.answers.length-1){
-this.answeredTest=this.answers.filter(o=>o.answer!="").length;
+   
+
 console.log(this.answers.filter(o=>o.answer!=""));
-   }
+   
   }
   previous(){
     this.counter--;
@@ -133,15 +141,32 @@ console.log(this.answers.filter(o=>o.answer!=""));
     this.currentAnswer.answer=this.answers[this.counter].answer;
     console.log(this.answers)
   }
-
+  clickQuestion(index){
+    this.currentQuestion=this.test["tests"][index];
+    this.currentAnswer.answer=this.answers[index].answer;
+    this.counter=index;
+    console.log(this.answers)
+  }
+  bookmark(){
+    this.answers[this.counter].answerState='B';
+    console.log(this.answers)
+  }
+  unmark(){
+    if(this.answers[this.counter].answer.length>0)
+      this.answers[this.counter].answerState='A';
+    else
+      this.answers[this.counter].answerState='NA';
+    console.log(this.answers)
+  }
   onSelectionChange(option){
    // this.currentAnswer.answer=option;
     this.currentAnswer.question=this.currentQuestion.question;
     this.answers[this.counter].answer=option;
-    this._restService.updateAnswer({question:this.currentQuestion.question,answer:option},this.timeleft,this.route.snapshot.paramMap.get('testName'),new Date(this.route.snapshot.paramMap.get('assignedDate'))).subscribe(
+    this._restService.updateAnswer({question:this.currentQuestion.question,answer:option,answerState:''},this.timeleft,this.route.snapshot.paramMap.get('testName'),new Date(this.route.snapshot.paramMap.get('assignedDate'))).subscribe(
       data => {
        console.log(data);
-       
+       this.answers[this.counter].answerState='A';
+       this.answeredTest=this.answers.filter(o=>o.answer!="").length;
       // z
       },
       error => {

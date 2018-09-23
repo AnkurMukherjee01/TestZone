@@ -1,5 +1,4 @@
 .adminParent{
-    background-color: #f0f0f0;
     min-height:100%;
     width:100%;
 }
@@ -82,7 +81,6 @@ td.mat-cell, .mat-option-text,.mat-select-value{
 }
 .create-test-card{
     margin-top:40px;
-    margin-left:20px;
     width:100%;
     font-size:20px;
     min-width: 300px;
@@ -106,7 +104,7 @@ cursor: pointer;
 }
 .assign-bulk-test-card{
     margin-top:40px;
-    margin-left:20px;
+   
     width:100%;
     font-size:20px;
 }

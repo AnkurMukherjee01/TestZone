@@ -1,0 +1,3 @@
+<span [ngClass]="{'squareNonAnswered':(type=='NA'),'squareAnswered':(type=='A'),'squareBookmarked':(type=='B')}" (click)="clickQuestion.emit()">
+  {{questionNumber}}
+</span>

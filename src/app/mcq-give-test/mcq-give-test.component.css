@@ -3,7 +3,7 @@
     height:800px;
     align-content: center;
     align-items: center;
-    padding-left:10%;
+    padding-left:2.5%;
     padding-top:30px;
     color: #0080ca !important;
 }
@@ -13,9 +13,9 @@
     font-size:30px;
 }
 .test-card{
-    min-height:700px;
-    width:80%;
-    
+    width:95%;
+    overflow-y: scroll;
+    height:95%;
 }
 .duration{
     float:right;
@@ -33,6 +33,12 @@
 .wrap-mat-radio-label{
     font-size:22px !important; 
     color: rgb(1, 51, 145) !important;
+}
+.qstn-number{
+    height:40px;
+}
+.qst-no{
+    padding-left:10px;
 }
 .radio-group {
     display: inline-flex;
@@ -70,9 +76,11 @@
 }
 .test-card-result,.result-det{
     text-align: center;
-    font-size: 40px;
+    font-size: 20px;
     font-weight: 500;
     color:rgb(2, 42, 117);
+    overflow-y: scroll;
+    width: 100%;
 }
 .result-line{
     padding-top:20px;

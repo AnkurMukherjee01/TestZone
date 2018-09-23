@@ -2,6 +2,11 @@
 <div class="header" *ngIf="marks < 0">
 <span>Test Name: {{test.testName}}</span>
 <span class="duration">Time Remaining: {{timeleft|minuteSeconds}}</span>
+<div class="qstn-number">
+  <span *ngFor="let ans of answers;let index = index" class="qst-no">
+    <app-question-checker [type]="ans.answerState" [questionNumber]=index+1 (clickQuestion)="clickQuestion(index)"></app-question-checker>
+  </span>
+</div>
 <div *ngIf="counter < test.tests.length;then exam else finalSubmit"></div>
 </div>
 
@@ -22,9 +27,9 @@
           <div *ngFor="let com of comments"  class="result-line">
             <span>{{com}}</span>
           </div>
-          <!-- <div>
+          <div>
             <button mat-raised-button class="submitButtonFinal"  (click)="ok()">Ok</button>
-          </div> -->
+          </div>
       </mat-card-content>
   </mat-card>
 </div>
@@ -46,7 +51,9 @@
               
               <div>
               <button mat-raised-button class="submitButtonLeft" *ngIf="counter > 0" (click)="previous()">Previous</button>
-              <button mat-raised-button class="submitButton" *ngIf="counter < test.tests.length" (click)="next()">Next</button>
+              <button mat-raised-button *ngIf="answers[counter].answerState!='B'" class="submitButton"  (click)="bookmark()">Bookmark</button>
+              <button mat-raised-button *ngIf="answers[counter].answerState=='B'" class="submitButton"  (click)="unmark()">Unmark</button>
+              <button mat-raised-button class="submitButton" *ngIf="counter < test.tests.length" (click)="next()">Next/Skip</button>
               </div>
       <div>
               <!-- <button mat-raised-button class="submitButtonFinal"  (click)="submit()">Submit</button> -->

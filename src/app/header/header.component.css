@@ -26,12 +26,12 @@
 
 .button{
     font-size: 40px !important; 
-    height: 70px;
-    padding-top: 40px;
+    height: 107px;
+    
 }
 button:hover{
-    color:black;
-    background-color: #64a3c0;
+   
+    background-color: inherit;
     border-bottom: 3px solid rgb(0, 255, 85);
 }
 button:click{
