@@ -10,8 +10,8 @@
     padding-left:30px;
 }
 .info-card{
-    min-width: 200px;
-    min-height: 100px;
+
+    min-height: 80px;
     text-align: center;
 }
 .infoCardValueClean{

@@ -24,7 +24,7 @@ export class AdminComponent implements OnInit {
   ourFile: File;
   testUploadFile: File;
   testUploadAssignFile: File;
-  createTestModel = new CreateTestModel('', '60', 'M', 20,'');
+  createTestModel = new CreateTestModel('', '60', 'M', '','');
   testList: string[];
   studentControlMcq = new FormControl();
   optionsMcq: string[];
@@ -198,10 +198,10 @@ export class AdminComponent implements OnInit {
                   ))
                   return o1["testName"]
                 })
-      
+                this.createTestModel = new CreateTestModel('', '60', 'M','','');
             },
             error => {
-      
+              this.createTestModel = new CreateTestModel('', '60', 'M', '','');
             }
           )
         },
@@ -211,7 +211,7 @@ export class AdminComponent implements OnInit {
           });
         }
       );
-      this.createTestModel = new CreateTestModel('', '60', 'M', 20,'');
+      
       this.testUploadFile = null;
     }
     myReader.readAsDataURL(this.testUploadFile);

@@ -142,7 +142,7 @@
               <mat-option value="A">A</mat-option>
             </mat-select>
            
-                <input matInput placeholder="No of questionin test" [(value)]="createTestModel.noOfQstn">
+                <input matInput placeholder="No of questionin test" name="noOfQstn"  [(ngModel)]="createTestModel.noOfQstn">
              
             <span>
               <button mat-raised-button (click)="openTestInput()">

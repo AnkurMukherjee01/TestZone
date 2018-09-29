@@ -1,5 +1,5 @@
 <div id="fullscreen">
-<div class="header" *ngIf="marks < 0">
+<div class="header" *ngIf="marks < 0 && timeleft &gt; 0.0">
 <span>Test Name: {{test.testName}}</span>
 <span class="duration">Time Remaining: {{timeleft|minuteSeconds}}</span>
 <div class="qstn-number">
@@ -10,9 +10,9 @@
 <div *ngIf="counter < test.tests.length;then exam else finalSubmit"></div>
 </div>
 
-<div class="testResult" *ngIf="marks >= 0" >
+<div class="mainContent" *ngIf="marks >= 0 || timeleft<=0.0" >
   <mat-card class="test-card-result">
-      <mat-card-content class="result-det">
+      <mat-card-content >
         <div class="result-line">
           <span>Test Name:
           <span>{{test.testName}}</span>
@@ -23,9 +23,9 @@
             <span>{{marks}}/{{totalMarks}}</span>
             </span>
           </div>
-          <div *ngIf="comments?.length>0"  class="result-line">Improvement Needed</div>
-          <div *ngFor="let com of comments"  class="result-line">
-            <span>{{com}}</span>
+          <div *ngIf="comments?.length>0"  class="result-line"><b>Improvement Needed</b></div>
+          <div *ngFor="let com of comments;let i=index"  class="result-line">
+            <span>{{i+1}}.{{com}}</span>
           </div>
           <div>
             <button mat-raised-button class="submitButtonFinal"  (click)="ok()">Ok</button>
@@ -38,7 +38,10 @@
     <div class="mainContent" *ngIf="marks < 0">
         <mat-card class="test-card">
             <mat-card-header>
-                <mat-card-title>{{currentQuestion.question}}</mat-card-title>
+                <mat-card-title>
+                  <div class="qstnNo">Question #:{{counter+1}}</div>
+                  <div>{{currentQuestion.question}}</div>
+                </mat-card-title>
             </mat-card-header>
             <mat-card-content>
               <mat-radio-group class="radio-group" [(ngModel)]="currentAnswer.answer">
@@ -71,6 +74,7 @@
             <div class="col-sm-6">
               <div>NO. of Questions Answered</div>
               <div>{{answeredTest}}</div>
+             
             </div>
             <div class="col-sm-6">
                 <div>Skipped Question</div>
@@ -80,9 +84,11 @@
     </mat-card-title>
     </mat-card-header>
     <mat-card-content>
+        <span><button mat-raised-button class="submitButtonFinal"  (click)="submit()">Submit</button></span>
       <h3>Your Answers</h3>
-      <div *ngFor="let test of answers">
-<div class="question">{{test.question}}</div>
+      
+      <div *ngFor="let test of answers;let index = index">
+<div class="question">{{index+1}}.{{test.question}}</div>
 <div class="answer">Answer:{{test.answer}}</div>
       </div>
       <button mat-raised-button class="submitButtonLeft" *ngIf="counter > 0" (click)="previous()">Previous</button>

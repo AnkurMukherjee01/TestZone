@@ -1,6 +1,13 @@
 .pageHeader{
     font-size: 40px;
     margin-left: 40px;
+    height: inherit;
+}
+.oversize {
+    height: 100%;
+width:inherit;
+padding-left: 30%;
+padding-right:5px;
 }
 .header {
     font-size: 40px;
@@ -9,7 +16,7 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00ae7b",endColorstr="#0081bf",GradientType=1);
     display: block;
     height: 80px;
-    padding-top: 20px;
+    
     color:white;
     font-family: Noto Sans;
 }
@@ -18,7 +25,7 @@
     float: right;
     text-align: right !important;
     font-size: 30px !important;
-    margin-top: -45px
+   height: inherit;
 }
 .siteName{
     width:60%;
@@ -26,7 +33,7 @@
 
 .button{
     font-size: 40px !important; 
-    height: 107px;
+    height: inherit;
     
 }
 button:hover{
