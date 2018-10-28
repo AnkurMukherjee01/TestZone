@@ -23,10 +23,8 @@ batchList:{}[]=[]
     this.dataSourceBatch.paginator = this.paginator;
     this._restService.getBatchList().subscribe(
       data=>{
-        console.log(data);
  this.batchList= Array.from(new Set(data['batch']));
 
- console.log(this.batchList);
       },
       error=>{
  
@@ -34,18 +32,13 @@ batchList:{}[]=[]
   }
 
   getUserDetail(selected){
-    console.log(selected);
     this._restService.getUserDetails(selected).subscribe(
       data => {
-        // refresh the list
-       // this.getFoods();
-      console.log(data);
        this.dataSourceBatch.data =data['user'];
       // this.percentile= data[' percentile'];
         return true;
       },
       error => {
-        console.error(error.data);
         this.router.navigate(['']);
       }
    );

@@ -43,10 +43,7 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this._restService.getBatchList().subscribe(
       data=>{
-        console.log(data);
  this.batchList= Array.from(new Set(data['batch']));
-
- console.log(this.batchList);
       },
       error=>{
  
@@ -54,7 +51,6 @@ export class AdminComponent implements OnInit {
     this.pendingApproval();
     this._restService.getTestName().subscribe(
       data => {
-        console.log(data);
         this.testList = data.test.
           filter(o => o["testType"] == 'M').map(o1 => {
             this.testName.push(new AssignTest(
@@ -70,14 +66,7 @@ export class AdminComponent implements OnInit {
       }
     )
     this._restService.getEmployee('M').subscribe(name => {
-      console.log(name)
       this.optionsMcq = name["name"] as string[]
-      // this.optionsMcqFilter = this.studentControlMcq.valueChanges
-      //   .pipe(
-      //     startWith(''),
-      //     map(value =>  this._filterMcq(value))
-      //   );
-      //   console.log(this.optionsMcqFilter)
     })
 
   }
@@ -91,7 +80,6 @@ export class AdminComponent implements OnInit {
     return this.optionsMcq.filter(option => option["name"].toLowerCase().indexOf(value.toLowerCase())===0);
   }
   approve() {
-    console.log(this.approval)
     this._restService.updatependingapproval(this.approval).subscribe(
       data => {
         this.pendingApproval();
@@ -115,7 +103,6 @@ export class AdminComponent implements OnInit {
         return true;
       },
       error => {
-        console.error(error);
         this.token.signOut();
         this.router.navigate(['']);
       }
@@ -138,12 +125,9 @@ export class AdminComponent implements OnInit {
   * this is used to perform the actual upload
   */
   upload() {
-    console.log('sending this to server', this.ourFile);
-
     var myReader: FileReader = new FileReader();
 
     myReader.onloadend = (e) => {
-      console.log('sending this to server', (myReader.result));
       this._restService.createBulkLogin(myReader.result).subscribe(
         data => {
           this.snackBar.open(data['success'], 'Dismiss', {
@@ -187,7 +171,6 @@ if(this.testUploadFile==undefined || this.testUploadFile==null)
       });
       this._restService.getTestName().subscribe(
         data => {
-          console.log(data);
           this.testList = data.test.
             filter(o => o["testType"] == 'M').map(o1 => {
               this.testName.push(new AssignTest(
@@ -217,7 +200,6 @@ else{
     var myReader: FileReader = new FileReader();
 
     myReader.onloadend = (e) => {
-      console.log('sending this to server', (myReader.result));
       this.createTestModel.testFile = myReader.result.split("base64,")[1];
       this._restService.createTest(this.createTestModel).subscribe(
         data => {
@@ -226,7 +208,6 @@ else{
           });
           this._restService.getTestName().subscribe(
             data => {
-              console.log(data);
               this.testList = data.test.
                 filter(o => o["testType"] == 'M').map(o1 => {
                   this.testName.push(new AssignTest(
@@ -271,12 +252,9 @@ else{
   * this is used to perform the actual upload
   */
   uploadAssignTest() {
-    console.log('sending this to server', this.testUploadAssignFile);
-
     var myReader: FileReader = new FileReader();
 
     myReader.onloadend = (e) => {
-      console.log('sending this to server', (myReader.result));
       this._restService.assignBulkTest(myReader.result).subscribe(
         data => {
           this.snackBar.open(data['success'], 'Dismiss', {
@@ -358,7 +336,6 @@ else{
   }
 
   deleteTest(test) {
-    console.log("test" + test);
     this._restService.deleteTest(test).subscribe(
       data => {
         this.snackBar.open(data['success'], 'Dismiss', {
@@ -366,7 +343,6 @@ else{
         });
         this._restService.getTestName().subscribe(
           data => {
-            console.log(data);
             this.testList = data.test.
               filter(o => o["testType"] == 'M').map(o1 => {
                 this.testName.push(new AssignTest(
@@ -391,7 +367,6 @@ else{
   }
 
   assignTest(index, test) {
-    console.log(index);
     this._restService.assignTest(this.testName[index]['email'], test).subscribe(
       data => {
         this.snackBar.open(data['success'], 'Dismiss', {
@@ -408,7 +383,6 @@ else{
   }
 
   createBatch(){
-    console.log(this.batchNameModel)
     this._restService.createBatch(this.batchNameModel).subscribe(
       data => {
         this.snackBar.open(data['success'], 'Dismiss', {

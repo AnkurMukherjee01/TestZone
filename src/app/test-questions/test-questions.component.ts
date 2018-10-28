@@ -31,7 +31,6 @@ export class TestQuestionsComponent implements OnInit {
             question:data["test"][0].tests[i].question,
             image:""
           })
-          console.log(this.questions)
         }
           //this.questions.push= data["test"][0].tests.map(o=>o.questions)
       },
@@ -64,7 +63,6 @@ export class TestQuestionsComponent implements OnInit {
 
   fileImageChange(files: File[],index) {
     var myReader: FileReader = new FileReader();
-  console.log(index)
     if (files.length > 0) {
       myReader.readAsDataURL(files[0]);
      // this.questions[index].image = files[0];

@@ -44,12 +44,12 @@ export class McqGiveTestComponent implements OnInit {
 
   @HostListener('window:keyup', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    console.log(event);
+ 
     event.preventDefault();
     event.stopPropagation();
     let keyPressed = event.keyCode;
     if (keyPressed === 27) {
-      console.log('Escape!');
+
     }
   }
 
@@ -65,7 +65,6 @@ export class McqGiveTestComponent implements OnInit {
   }
   ngOnInit() {
     this.globalListenFunc = this.renderer.listen('document', 'keypress', e => {
-      console.log(e);
       e.preventDefault();
       e.stopPropagation();
     });
@@ -94,7 +93,7 @@ export class McqGiveTestComponent implements OnInit {
     this._restService.fetchTestDet(this.route.snapshot.paramMap.get('testName'), new Date(this.route.snapshot.paramMap.get('assignedDate'))).subscribe(
       data => {
         this.test = data["tst"][0];
-        console.log(data);
+       
         sourceTwo.subscribe(o => {
           if (data["existingDet"][0].timeStarted != undefined) {
             this.timeleft = data["tst"][0]["testDuration"] * 60-Math.floor((dateNow - new Date(data["existingDet"][0].timeStarted).getTime()) / 1000) - o
@@ -112,7 +111,7 @@ export class McqGiveTestComponent implements OnInit {
          // this.currentAnswer.answer = data["existingDet"][0]["answers"].filter(p => p["question"] == data["tst"][0]["tests"][0].question)[0]["answer"]
           for (var i = 0; i < data["tst"][0]["tests"].length; i++) {
             if (data["existingDet"][0]["answers"].filter(p =>p["qstnId"] == data["tst"][0]["tests"][i]._id).length > 0) {
-              console.log(data["existingDet"][0]["answers"].filter(p => p["qstnId"] == data["tst"][0]["tests"][i]._id)[0]["answer"])
+            
               this.answers.push(new Answers(data["tst"][0]["tests"][i].question,data["tst"][0]["tests"][i].image, data["existingDet"][0]["answers"].filter(p => p["qstnId"] == data["tst"][0]["tests"][i]._id)[0]["answer"], "A",data["tst"][0]["tests"][i]._id));
             //  if(i=0){
             //    this.currentAnswer.answer=data["existingDet"][0]["answers"].filter(p => p["question"] == data["tst"][0]["tests"][i].question)[0]["answer"]
@@ -157,34 +156,30 @@ export class McqGiveTestComponent implements OnInit {
 
     this.currentQuestion = this.test["tests"][this.counter];
     this.currentAnswer.answer = this.answers[this.counter].answer;
-    console.log(this.answers);
-
-
-    console.log(this.answers.filter(o => o.answer != ""));
-
+    ;
   }
   previous() {
     this.counter--;
     this.currentQuestion = this.test["tests"][this.counter];
     this.currentAnswer.answer = this.answers[this.counter].answer;
-    console.log(this.answers)
+    
   }
   clickQuestion(index) {
     this.currentQuestion = this.test["tests"][index];
     this.currentAnswer.answer = this.answers[index].answer;
     this.counter = index;
-    console.log(this.answers)
+    
   }
   bookmark() {
     this.answers[this.counter].answerState = 'B';
-    console.log(this.answers)
+    
   }
   unmark() {
     if (this.answers[this.counter].answer.length > 0)
       this.answers[this.counter].answerState = 'A';
     else
       this.answers[this.counter].answerState = 'NA';
-    console.log(this.answers)
+    
   }
   onSelectionChange(option) {
     // this.currentAnswer.answer=option;
@@ -192,7 +187,7 @@ export class McqGiveTestComponent implements OnInit {
     this.answers[this.counter].answer = option;
     this._restService.updateAnswer({ question: this.currentQuestion.question,image:"", answer: option, answerState: '',qstnId:this.currentQuestion }, this.timeleft, this.route.snapshot.paramMap.get('testName'), new Date(this.route.snapshot.paramMap.get('assignedDate'))).subscribe(
       data => {
-        console.log(data);
+       
         this.answers[this.counter].answerState = 'A';
         this.answeredTest = this.answers.filter(o => o.answer != "").length;
         // z
@@ -207,12 +202,10 @@ export class McqGiveTestComponent implements OnInit {
   submit() {
     this._restService.saveTest(this.route.snapshot.paramMap.get('testName'), new Date(this.route.snapshot.paramMap.get('assignedDate'))).subscribe(
       data => {
-        console.log(data);
+       
         this.marks = data['marks'];
         this.totalMarks = data['totalMarks'];
-        console.log(this.test["tests"])
         this.comments = this.test["tests"].filter(p=>data['correctQstnId'].indexOf(p._id)<0).map(o=>o.comments)
-        console.log(this.comments)
         // z
       },
       error => {

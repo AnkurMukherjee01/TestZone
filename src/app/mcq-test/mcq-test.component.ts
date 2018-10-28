@@ -28,14 +28,11 @@ export class McqTestComponent implements OnInit {
   constructor(private router: Router,private _restService: RestService,private token: TokenStorage,private route: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log("in in it");
     this.email = this.route.snapshot.paramMap.get('email');
-    console.log(this.email);
+   
     this._restService.mcq(this.email).subscribe(
       data => {
-        // refresh the list
-       // this.getFoods();
-      // console.log(data);
+ 
        this.dataSource.data =data['testDet'].reverse();
        this.testNameList= (data['testDet'].filter(x => x.marks >-1).map(y=>y.testName)).filter(function (el, index, array) { 
         return array.indexOf (el) == index;
@@ -53,7 +50,6 @@ export class McqTestComponent implements OnInit {
 //   return this.dataSource.data.filter(x => x.marks == type);
 // }
 start(element){
-  console.log(element.testName);
   this.router.navigate(['/mcqTest',element.testName,element.assigneddate]);
 }
 compare(a,b) {
@@ -71,12 +67,8 @@ comparePercentage(a,b) {
   return 0;
 }
 getMarks(selected){
-  console.log(selected);
   this._restService.getRank(selected).subscribe(
     data => {
-      // refresh the list
-     // this.getFoods();
-    console.log(data);
     if(this.totalQuestionExist(data['userDet'])){
       this.dataSourceResult.data =data['userDet'].sort(this.comparePercentage);
     }
