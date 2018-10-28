@@ -27,6 +27,11 @@ padding-right:5px;
     font-size: 30px !important;
    height: inherit;
 }
+@-moz-document url-prefix() {
+    .menu {
+        margin-top:-80px;
+    }
+}
 .siteName{
     width:60%;
 }
