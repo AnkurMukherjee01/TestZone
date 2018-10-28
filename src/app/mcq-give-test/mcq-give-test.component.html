@@ -22,6 +22,8 @@
             <span>Marks:
             <span>{{marks}}/{{totalMarks}}</span>
             </span>
+            <div class="marks-bar"></div>
+            <div [ngStyle]="{'margin-left.%':-30+60*marks/totalMarks}"><i class="fa fa-caret-up" aria-hidden="true"></i></div>
           </div>
           <div *ngIf="comments?.length>0"  class="result-line"><b>Improvement Needed</b></div>
           <div *ngFor="let com of comments;let i=index"  class="result-line">
@@ -40,7 +42,11 @@
             <mat-card-header>
                 <mat-card-title>
                   <div class="qstnNo">Question #:{{counter+1}}</div>
-                  <div>{{currentQuestion.question}}</div>
+    <div *ngFor="let qs of currentQuestion.question.split('||')">
+      <div>{{qs}}</div>
+    </div>
+                  
+                  <img *ngIf="currentQuestion.image?.length>0" src="{{currentQuestion.image}}"/>
                 </mat-card-title>
             </mat-card-header>
             <mat-card-content>
@@ -87,8 +93,8 @@
         <span><button mat-raised-button class="submitButtonFinal"  (click)="submit()">Submit</button></span>
       <h3>Your Answers</h3>
       
-      <div *ngFor="let test of answers;let index = index">
-<div class="question">{{index+1}}.{{test.question}}</div>
+      <div *ngFor="let test of answers;let index = index">{{index+1}}.
+<div *ngFor="let ts of test.question.split('||')" class="question"><div>{{ts}}</div></div>
 <div class="answer">Answer:{{test.answer}}</div>
       </div>
       <button mat-raised-button class="submitButtonLeft" *ngIf="counter > 0" (click)="previous()">Previous</button>

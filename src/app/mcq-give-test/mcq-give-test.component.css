@@ -93,14 +93,15 @@
 }
 .result-line{
     padding-top:20px;
+   
 }
 .question{
     font-size:22px !important; 
-    color: rgb(1, 51, 145) !important;
+    color: rgb(2, 41, 114) !important;
 }
 .answer{
     font-size:20px !important; 
-    color: rgb(3, 72, 201) !important; 
+    color: rgb(3, 154, 180) !important; 
 }
 #fullscreen{
     width:100%;
@@ -112,3 +113,11 @@ html { background-color: inherit; }
     width: 100% !important;
     height: 100% !important;
   }
+.marks-bar{
+    height:20px;
+    width:30%;
+    margin-left:35%;
+    background: linear-gradient(45deg,#ff0000,yellow,#008000);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff0000",endColorstr="#008000",GradientType=1);
+    display: block;
+}

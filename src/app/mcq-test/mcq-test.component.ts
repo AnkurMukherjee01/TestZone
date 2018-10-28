@@ -7,18 +7,6 @@ import {MCQ} from '../mcq';
 import {Router,ActivatedRoute, Params,  } from '@angular/router';
 import {TokenStorage} from '../token.storage';
 
-const ELEMENT_DATA: MCQ[] = [
-  {position: 1, testName: 'Hydrogen', date: 1.0079, mark: 'H'},
-  {position: 2, testName: 'Helium', date: 4.0026, mark: 'He'},
-  {position: 3, testName: 'Lithium', date: 6.941, mark: 'Li'},
-  {position: 4, testName: 'Beryllium', date: 9.0122, mark: 'Be'},
-  {position: 5, testName: 'Boron', date: 10.811, mark: 'B'},
-  {position: 6, testName: 'Carbon', date: 12.0107, mark: 'C'},
-  {position: 7, testName: 'Nitrogen', date: 14.0067, mark: 'N'},
-  {position: 8, testName: 'Oxygen', date: 15.9994, mark: 'O'},
-  {position: 9, testName: 'Fluorine', date: 18.9984, mark: 'F'},
-  {position: 10, testName: 'Neon', date: 20.1797, mark: 'Ne'},
-];
 
 @Component({
   selector: 'app-mcqtest',
@@ -27,7 +15,7 @@ const ELEMENT_DATA: MCQ[] = [
 })
 export class McqTestComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'testName','assignedDate', 'date', 'mark'];
+  displayedColumns: string[] = ['position', 'testName','assignedDate', 'date', 'mark','percentage'];
   displayedColumnsRank: string[] = ['position', 'testNameRank', 'marksRank'];
   dataSource =  new MatTableDataSource(); 
   dataSourceResult =  new MatTableDataSource(); 
@@ -75,6 +63,13 @@ compare(a,b) {
     return -1;
   return 0;
 }
+comparePercentage(a,b) {
+  if (a.marks/a.totalQuestion < b.marks/b.totalQuestion)
+    return 1;
+  if (a.marks/a.totalQuestion > b.marks/b.totalQuestion)
+    return -1;
+  return 0;
+}
 getMarks(selected){
   console.log(selected);
   this._restService.getRank(selected).subscribe(
@@ -82,15 +77,30 @@ getMarks(selected){
       // refresh the list
      // this.getFoods();
     console.log(data);
-     this.dataSourceResult.data =data['userDet'].sort(this.compare);
+    if(this.totalQuestionExist(data['userDet'])){
+      this.dataSourceResult.data =data['userDet'].sort(this.comparePercentage);
+    }
+    else{
+      this.dataSourceResult.data =data['userDet'].sort(this.compare);
+    }
+     
      this.percentile= data[' percentile'];
       return true;
     },
     error => {
       console.error(error.data);
+      this.token.signOut();
       this.router.navigate(['']);
     }
  );
+}
+totalQuestionExist(user){
+  let usrDet=true;
+  user.map(o=>{if(!user.totalQuestion) usrDet=false})
+  return usrDet;
+}
+round = function(num) {
+  return +(Math.round(num*100) /100 );
 }
    
   }

@@ -32,7 +32,7 @@ export class McqGiveTestComponent implements OnInit {
   currentQuestion: any = '';
   timeleft: any = 0;
   answers: Answers[] = [];
-  currentAnswer: Answers = new Answers('', '', 'NA','');
+  currentAnswer: Answers = new Answers('','', '', 'NA','');
   marks: number;
   totalMarks: Number;
   comments: String[] = [];
@@ -113,13 +113,13 @@ export class McqGiveTestComponent implements OnInit {
           for (var i = 0; i < data["tst"][0]["tests"].length; i++) {
             if (data["existingDet"][0]["answers"].filter(p =>p["qstnId"] == data["tst"][0]["tests"][i]._id).length > 0) {
               console.log(data["existingDet"][0]["answers"].filter(p => p["qstnId"] == data["tst"][0]["tests"][i]._id)[0]["answer"])
-              this.answers.push(new Answers(data["tst"][0]["tests"][i].question, data["existingDet"][0]["answers"].filter(p => p["qstnId"] == data["tst"][0]["tests"][i]._id)[0]["answer"], "A",data["tst"][0]["tests"][i]._id));
+              this.answers.push(new Answers(data["tst"][0]["tests"][i].question,data["tst"][0]["tests"][i].image, data["existingDet"][0]["answers"].filter(p => p["qstnId"] == data["tst"][0]["tests"][i]._id)[0]["answer"], "A",data["tst"][0]["tests"][i]._id));
             //  if(i=0){
             //    this.currentAnswer.answer=data["existingDet"][0]["answers"].filter(p => p["question"] == data["tst"][0]["tests"][i].question)[0]["answer"]
             //  } 
             }
             else {
-              this.answers.push(new Answers(data["tst"][0]["tests"][i].question, "", "NA",data["tst"][0]["tests"][i]._id));
+              this.answers.push(new Answers(data["tst"][0]["tests"][i].question,data["tst"][0]["tests"][i].image, "", "NA",data["tst"][0]["tests"][i]._id));
             }
 
 
@@ -130,7 +130,7 @@ export class McqGiveTestComponent implements OnInit {
         else {
           this.currentQuestion = data["tst"][0]["tests"][this.counter];
           for (var i = 0; i < data["tst"][0]["tests"].length; i++) {
-            this.answers.push(new Answers(data["tst"][0]["tests"][i].question, "", "NA",data["tst"][0]["tests"][i]._id));
+            this.answers.push(new Answers(data["tst"][0]["tests"][i].question,data["tst"][0]["tests"][i].image, "", "NA",data["tst"][0]["tests"][i]._id));
           }
         }
 //this.comments=data["tst"][0]["tests"].map(o=>o["comments"])
@@ -190,7 +190,7 @@ export class McqGiveTestComponent implements OnInit {
     // this.currentAnswer.answer=option;
     this.currentAnswer.question = this.currentQuestion.question;
     this.answers[this.counter].answer = option;
-    this._restService.updateAnswer({ question: this.currentQuestion.question, answer: option, answerState: '',qstnId:this.currentQuestion }, this.timeleft, this.route.snapshot.paramMap.get('testName'), new Date(this.route.snapshot.paramMap.get('assignedDate'))).subscribe(
+    this._restService.updateAnswer({ question: this.currentQuestion.question,image:"", answer: option, answerState: '',qstnId:this.currentQuestion }, this.timeleft, this.route.snapshot.paramMap.get('testName'), new Date(this.route.snapshot.paramMap.get('assignedDate'))).subscribe(
       data => {
         console.log(data);
         this.answers[this.counter].answerState = 'A';
@@ -210,7 +210,9 @@ export class McqGiveTestComponent implements OnInit {
         console.log(data);
         this.marks = data['marks'];
         this.totalMarks = data['totalMarks'];
-        this.comments = this.test["tests"].filter(p=>data['correctQstnId'].indexOf(p._id)).map(o=>o.comments)
+        console.log(this.test["tests"])
+        this.comments = this.test["tests"].filter(p=>data['correctQstnId'].indexOf(p._id)<0).map(o=>o.comments)
+        console.log(this.comments)
         // z
       },
       error => {

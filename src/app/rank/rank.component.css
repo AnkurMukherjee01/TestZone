@@ -1,8 +1,10 @@
+.rankDropdown{
+    margin-left: 5px;
+}
 .mat-card{
     margin-top :20px;
-    margin-left: 20px;
+    
 }
-
 .mat-header-cell,.mat-card-title{
     font-size:20px;
     color:rgb(1, 53, 150);

@@ -13,11 +13,11 @@ i{
     color:rgb(2, 42, 117);
 }
 td.mat-cell{
-    color:rgb(41, 97, 201) !important;
+    color:rgb(59, 119, 231) !important;
     font-size: 20px;
 }
 th.mat-header-cell{
-    color:rgb(2, 42, 117) !important;
+    color:rgb(1, 25, 71) !important;
     font-size: 16px;
 }
 rankForm{

@@ -88,6 +88,7 @@ td.mat-cell, .mat-option-text,.mat-select-value{
 .testName{
     width:120px;
     display: inline-block;
+    cursor: pointer;
 }
 .assign-full-width{
     width:60%;
@@ -121,4 +122,7 @@ cursor: pointer;
   .assigned{
     margin:5px;
 
+  }
+  .assign-form{
+      overflow-y:auto;
   }

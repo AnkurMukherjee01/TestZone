@@ -3,6 +3,7 @@
     margin-top: 50px;
 max-width: 600px; 
     font-size: 16px ;
+    max-height: 300px
 }
 .login-background{
     background-image: url('../../assets/20180716_131404-EFFECTS.jpg')

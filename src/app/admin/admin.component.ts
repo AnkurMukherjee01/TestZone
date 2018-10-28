@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import {MatDialog,MatDialogRef} from '@angular/material';
 import { RestService } from "../rest.service";
 import { Observable, Subscription, of } from 'rxjs';
 import { TokenStorage } from '../token.storage';
@@ -10,6 +11,7 @@ import { CreateTestModel } from '../create-test-model';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { AssignTest } from '../assign-test'
+import { TestQuestionsComponent } from "../test-questions/test-questions.component";
 
 @Component({
   selector: 'app-admin',
@@ -34,7 +36,7 @@ export class AdminComponent implements OnInit {
   batchList=[]
 
 
-  constructor(private router: Router, private _restService: RestService, private token: TokenStorage, private snackBar: MatSnackBar) {
+  constructor(private router: Router, private _restService: RestService, private token: TokenStorage, private snackBar: MatSnackBar,public dialog: MatDialog) {
     this.msg = [];
   }
 
@@ -175,8 +177,43 @@ export class AdminComponent implements OnInit {
   * this is used to perform the actual upload
   */
   uploadTest() {
-    console.log('sending this to server', this.ourFile);
+if(this.testUploadFile==undefined || this.testUploadFile==null)
+{
+  this.createTestModel.testFile = "";
+  this._restService.createTest(this.createTestModel).subscribe(
+    data => {
+      this.snackBar.open(data['success'], 'Dismiss', {
+        duration: 5000,
+      });
+      this._restService.getTestName().subscribe(
+        data => {
+          console.log(data);
+          this.testList = data.test.
+            filter(o => o["testType"] == 'M').map(o1 => {
+              this.testName.push(new AssignTest(
+                o1["testName"],
+                ""
+              ))
+              return o1["testName"]
+            })
+            this.createTestModel = new CreateTestModel('', '60', 'M','','');
+        },
+        error => {
+          this.createTestModel = new CreateTestModel('', '60', 'M', '','');
+        }
+      )
+    },
+    error => {
+      this.snackBar.open(error.error['errorMessage'], 'Dismiss', {
+        duration: 5000,
+      });
+    }
+  );
+  
+  this.testUploadFile = null;
+}
 
+else{
     var myReader: FileReader = new FileReader();
 
     myReader.onloadend = (e) => {
@@ -216,6 +253,8 @@ export class AdminComponent implements OnInit {
     }
     myReader.readAsDataURL(this.testUploadFile);
   }
+  }
+
   openAssignTestInput() {
     // your can use ElementRef for this later
     document.getElementById("fileAssignTestInput").click();
@@ -383,5 +422,13 @@ export class AdminComponent implements OnInit {
         });
       }
     );
+  }
+
+  openDialog(test){
+    const dialogRef = this.dialog.open(TestQuestionsComponent, {
+      width: '80%',
+      data: {testName: test}
+    });
+
   }
 }

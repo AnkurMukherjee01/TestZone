@@ -1,0 +1,49 @@
+<mat-card>
+<mat-card-header>
+  <mat-card-title class="test-assigned-header">Your Report Cards</mat-card-title>
+</mat-card-header>
+<mat-card-content >
+
+ 
+    <div class="row">
+        <mat-form-field class="col-sm-3 rankDropdown">
+      <mat-select  [(value)]="selectedBatch" [(ngModel)]="selectedBatch" >
+        <mat-option *ngFor="let batch of batchList" [value]="batch" >{{ batch }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="col-sm-3 rankDropdown">
+      <mat-select   (selectionChange)="getMarks($event.value)" [(value)]="selectedTest" [(ngModel)]="selectedTest" >
+          
+          <mat-option *ngFor="let testName of testNameList" [value]="testName" >{{ testName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  </div>
+
+      <table mat-table [dataSource]="dataSourceResult" class="mat-elevation-z8 test-rank-table">
+
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+        
+          <!-- Position Column -->
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> Rank </th>
+            <td mat-cell *matCellDef="let element;let i = index"> {{i+1}} </td>
+          </ng-container>
+      
+          <!-- testName Column -->
+          <ng-container matColumnDef="testNameRank">
+            <th mat-header-cell *matHeaderCellDef> Name</th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="marksRank">
+              <th mat-header-cell *matHeaderCellDef> Marks</th>
+              <td mat-cell *matCellDef="let element"> {{element.marks}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsRank"></tr>
+<tr mat-row *matRowDef="let row; columns: displayedColumnsRank;"></tr>
+          </table>
+    
+</mat-card-content>
+</mat-card>

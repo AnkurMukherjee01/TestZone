@@ -1,0 +1,21 @@
+<div class="questions">
+
+  <div *ngFor="let qstn of questions;let index=index" style="display: inline-block;width:100%">
+<div>{{qstn.question}}</div>
+<div class="uploadBulkApproval">
+  <button mat-raised-button (click)="openTestInput()" >
+    Select File to Upload
+  </button>
+
+  <input id="fileImageInput" hidden type="file" (change)="fileImageChange($event.target.files,index)">
+
+</div>
+</div>
+
+<div mat-dialog-actions  class="uploadBulkApproval">
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button  mat-button 
+    (click)="upload()">Create Test</button>
+</div>
+
+</div>

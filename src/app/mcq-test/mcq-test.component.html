@@ -46,7 +46,11 @@
 
       </td>
     </ng-container>
-  
+    <ng-container matColumnDef="percentage">
+      <th mat-header-cell *matHeaderCellDef> Percentage </th>
+      <td mat-cell *matCellDef="let element" >
+        <span *ngIf="element.totalQuestion"> {{round(element.marks*100/element.totalQuestion)}}% </span></td>
+    </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>  
@@ -89,7 +93,14 @@
 
                     <ng-container matColumnDef="marksRank">
                         <th mat-header-cell *matHeaderCellDef> Marks</th>
-                        <td mat-cell *matCellDef="let element"> {{element.marks}} </td>
+                        <td mat-cell *matCellDef="let element"> 
+                          <span *ngIf="element.totalQuestion">
+                              {{round(element.marks*100/element.totalQuestion)}}%
+                          </span>
+                          <span *ngIf="!element.totalQuestion">
+                              {{element.marks}}
+                          </span>
+                        </td>
                       </ng-container>
 
                       <tr mat-header-row *matHeaderRowDef="displayedColumnsRank"></tr>
@@ -99,5 +110,5 @@
         </mat-card-content>
       </mat-card>
     </div>
-    
+   
 </div>

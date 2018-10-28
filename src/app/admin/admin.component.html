@@ -153,7 +153,7 @@
 
             </span>
             <div>
-              <button class="uploadBulkApproval" [ngClass]="testUploadFile?.name.length>0?'uploadBulkApprovalActive':''" mat-button [disabled]="!testUploadFile"
+              <button class="uploadBulkApproval" [ngClass]="testUploadFile?.name.length>0?'uploadBulkApprovalActive':''" mat-button 
                 (click)="uploadTest()">Create Test</button>
             </div>
           </form>
@@ -214,7 +214,7 @@
                 <form class="assign-form">
                   <div *ngFor="let test of testList; let index = index" class="row">
 
-                    <div class="testName col-sm-3">{{test}}</div>
+                    <div class="testName col-sm-3" (click)="openDialog(test)">{{test}}</div>
                     <div class="assign-full-width col-sm-7">
                       <span class="dot" *ngIf="testName[index]?.email?.length>0">
                         <i class="fa fa-check assigned" aria-hidden="true" (click)="assignTest(index,test)"></i>

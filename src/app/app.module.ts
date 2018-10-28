@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule,MatTabsModule, MatInputModule,MatTableModule,MatSnackBarModule, MatPaginatorModule ,
-  MatRadioModule} from '@angular/material';
+  MatRadioModule,MatDialogModule} from '@angular/material';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSelectModule} from '@angular/material/select';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
@@ -25,6 +25,8 @@ import { McqTestQuestionComponent } from './mcq-test-question/mcq-test-question.
 import { UserDetComponent } from './user-det/user-det.component';
 import { QuestionCheckerComponent } from './question-checker/question-checker.component';
 import { AdminStudentComponent } from './admin-student/admin-student.component';
+import { RankComponent } from './rank/rank.component';
+import { TestQuestionsComponent } from './test-questions/test-questions.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { AdminStudentComponent } from './admin-student/admin-student.component';
     McqTestQuestionComponent,
     UserDetComponent,
     QuestionCheckerComponent,
-    AdminStudentComponent
+    AdminStudentComponent,
+    RankComponent,
+    TestQuestionsComponent
   ],
   imports: [
     BrowserModule,
@@ -49,12 +53,16 @@ import { AdminStudentComponent } from './admin-student/admin-student.component';
     BrowserAnimationsModule,
     MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule,MatTabsModule, MatInputModule,MatTableModule,MatSelectModule,
     MatRadioModule,
+    MatDialogModule,
     MatPaginatorModule ,
     MatAutocompleteModule,
     MatSnackBarModule,
     AppRoutingModule,
     AngularFontAwesomeModule
   ],
+  entryComponents: [
+    TestQuestionsComponent
+],
   providers: [RestService, AuthService,
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }
     ,TokenStorage
