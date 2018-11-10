@@ -204,8 +204,12 @@
     <div class="col-sm-4">
       <mat-card class="create-test-card">
         <mat-card-header>
-          <div mat-card-avatar class="card-header"></div>
           <mat-card-title>Test List</mat-card-title>
+          <mat-radio-group [(ngModel)]="selectedStatus">
+            <mat-radio-button value="student">By Student</mat-radio-button>
+            <mat-radio-button value="batch">By Batch</mat-radio-button>
+          </mat-radio-group>
+          
         </mat-card-header>
         <mat-card-content>
           <mat-tab-group (selectedTabChange)="onAssignTabClick($event)">
@@ -216,20 +220,26 @@
 
                     <div class="testName col-sm-3" (click)="openDialog(test)">{{test}}</div>
                     <div class="assign-full-width col-sm-7">
-                      <span class="dot" *ngIf="testName[index]?.email?.length>0">
+                      <span class="dot" *ngIf="testName[index]?.email?.length>0 || testName[index]?.batchName?.length>0">
                         <i class="fa fa-check assigned" aria-hidden="true" (click)="assignTest(index,test)"></i>
                       </span>
-                      <mat-form-field class="assign">
-
-
+                      <mat-form-field class="assign" *ngIf="selectedStatus=='student'">
                         <input type="text" placeholder="Pick one" aria-label="Number" matInput name="email-{{index}}" [matAutocomplete]="auto" 
-                          [(ngModel)]="testName[index].email" (ngModelChange)="doFilter(index)">
+                          [(ngModel)]="testName[index].email" (ngModelChange)="doFilter(index)" >
                         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onAssignSelect($event,test)">
                           <mat-option *ngFor="let option of optionsMcqFilter | async" [value]="option.email">
                             {{option.name}}
                           </mat-option>
                         </mat-autocomplete>
-
+                      </mat-form-field>
+                      <mat-form-field class="assign" *ngIf="selectedStatus=='batch'">
+                        <input type="text" placeholder="Pick one" aria-label="Number" matInput name="batch-{{index}}" [matAutocomplete]="auto" 
+                          [(ngModel)]="testName[index].batchName" (ngModelChange)="doFilterBatch(index)" >
+                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onAssignSelect($event,test)">
+                          <mat-option *ngFor="let option of optionsMcqFilterBatch | async" [value]="option">
+                            {{option}}
+                          </mat-option>
+                        </mat-autocomplete>
                       </mat-form-field>
                     </div>
                     <div class="col-sm-2">

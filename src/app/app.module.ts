@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule,MatTabsModule, MatInputModule,MatTableModule,MatSnackBarModule, MatPaginatorModule ,
-  MatRadioModule,MatDialogModule} from '@angular/material';
+  MatRadioModule,MatDialogModule, MatProgressSpinnerModule} from '@angular/material';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSelectModule} from '@angular/material/select';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
@@ -57,6 +57,7 @@ import { TestQuestionsComponent } from './test-questions/test-questions.componen
     MatPaginatorModule ,
     MatAutocompleteModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
     AppRoutingModule,
     AngularFontAwesomeModule
   ],

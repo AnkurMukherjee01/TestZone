@@ -31,9 +31,11 @@ export class AdminComponent implements OnInit {
   studentControlMcq = new FormControl();
   optionsMcq: string[];
   optionsMcqFilter: Observable<string[]>;
+  optionsMcqFilterBatch: Observable<string[]>;
   batchNameModel: String = "";
   testName: AssignTest[] = []
   batchList=[]
+  selectedStatus = "student"
 
 
   constructor(private router: Router, private _restService: RestService, private token: TokenStorage, private snackBar: MatSnackBar,public dialog: MatDialog) {
@@ -55,7 +57,7 @@ export class AdminComponent implements OnInit {
           filter(o => o["testType"] == 'M').map(o1 => {
             this.testName.push(new AssignTest(
               o1["testName"],
-              ""
+              "",""
             ))
             return o1["testName"]
           })
@@ -73,11 +75,20 @@ export class AdminComponent implements OnInit {
   doFilter(index){
     this.optionsMcqFilter =  of(this._filterMcq(this.testName[index]["email"]))
   }
+  doFilterBatch(index){
+    this.optionsMcqFilterBatch =  of(this._filterMcqBatch(this.testName[index]["batchName"]))
+    console.log(this.optionsMcqFilterBatch)
+  }
 
   private _filterMcq(value: string): string[] {
     
     const filterValue = value.toLowerCase();
     return this.optionsMcq.filter(option => option["name"].toLowerCase().indexOf(value.toLowerCase())===0);
+  }
+  private _filterMcqBatch(value: string): string[] {
+    console.log(this.batchList)
+    const filterValue = value.toLowerCase();
+    return this.batchList.filter(option => option.toLowerCase().indexOf(value.toLowerCase())===0);
   }
   approve() {
     this._restService.updatependingapproval(this.approval).subscribe(
@@ -175,7 +186,7 @@ if(this.testUploadFile==undefined || this.testUploadFile==null)
             filter(o => o["testType"] == 'M').map(o1 => {
               this.testName.push(new AssignTest(
                 o1["testName"],
-                ""
+                "",""
               ))
               return o1["testName"]
             })
@@ -211,7 +222,7 @@ else{
               this.testList = data.test.
                 filter(o => o["testType"] == 'M').map(o1 => {
                   this.testName.push(new AssignTest(
-                    o1["testName"],
+                    o1["testName"],"",
                     ""
                   ))
                   return o1["testName"]
@@ -287,7 +298,7 @@ else{
           this.testList = data.test.filter(o => o["testType"] == 'A').map(o1 => {
             this.testName.push(new AssignTest(
               o1["testName"],
-              ""
+              "",""
             ));
             return o1["testName"]
           })
@@ -321,18 +332,6 @@ else{
   onAssignSelect(option, test) {
     console.log(option);
     console.log(JSON.stringify(this.testName))
-    // this._restService.assignTest(option['option'].value,test).subscribe(
-    //   data => {
-    //     this.snackBar.open(data['success'],'Dismiss', {
-    //       duration: 5000,
-    //     });
-    //   },
-    //   error=>{
-    //     this.snackBar.open(error.error['message'],'Dismiss', {
-    //       duration: 5000,
-    //     });
-    //   }
-    // );
   }
 
   deleteTest(test) {
@@ -347,7 +346,7 @@ else{
               filter(o => o["testType"] == 'M').map(o1 => {
                 this.testName.push(new AssignTest(
                   o1["testName"],
-                  ""
+                  "",""
                 ))
                 return o1["testName"]
               })
@@ -367,6 +366,7 @@ else{
   }
 
   assignTest(index, test) {
+    if(this.selectedStatus=="student"){
     this._restService.assignTest(this.testName[index]['email'], test).subscribe(
       data => {
         this.snackBar.open(data['success'], 'Dismiss', {
@@ -380,6 +380,23 @@ else{
         });
       }
     );
+  }
+  else if (this.selectedStatus=="batch"){
+    //assignTestBatch
+    this._restService.assignTestBatch(this.testName[index]['batchName'], test).subscribe(
+      data => {
+        this.snackBar.open(data['success'], 'Dismiss', {
+          duration: 5000,
+        });
+        this.testName[index]['batchName'] = "";
+      },
+      error => {
+        this.snackBar.open(error.error['message'], 'Dismiss', {
+          duration: 5000,
+        });
+      }
+    );
+  }
   }
 
   createBatch(){

@@ -7,6 +7,7 @@ import { Router, ActivatedRoute, Params, } from '@angular/router';
 import { Answers } from '../answers';
 import * as screenfull from 'screenfull';
 import { McqTestComponent } from '../mcq-test/mcq-test.component';
+import { MatProgressSpinnerModule } from '@angular/material';
 
 @Pipe({
   name: 'minuteSeconds'
@@ -37,6 +38,7 @@ export class McqGiveTestComponent implements OnInit {
   totalMarks: Number;
   comments: String[] = [];
   answeredTest: number = 0;
+  testStarted:boolean=false;
   //testUnAuthorized:Boolean=false;
 
 
@@ -52,7 +54,13 @@ export class McqGiveTestComponent implements OnInit {
 
     }
   }
+  @HostListener('copy', ['$event']) blockCopy(e: KeyboardEvent) {
+    e.preventDefault();
+  }
 
+  @HostListener('cut', ['$event']) blockCut(e: KeyboardEvent) {
+    e.preventDefault();
+  }
 
   constructor(private router: Router, private _restService: RestService, private route: ActivatedRoute, private renderer: Renderer2) {
     this.counter = 0;
@@ -136,7 +144,7 @@ export class McqGiveTestComponent implements OnInit {
         //  this.dataSource.data =data['testDet'];
         //   return true;
         // this.timeleft=data["tst"][0]["testDuration"]*60000- 
-
+//this.testStarted=true;
       },
       error => {
         console.error(error.data);

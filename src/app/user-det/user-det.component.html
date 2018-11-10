@@ -43,7 +43,14 @@
                       <th mat-header-cell *matHeaderCellDef> Last Login</th>
                       <td mat-cell *matCellDef="let element"> {{element.lastLogin | date}} </td>
                     </ng-container>
-
+                    <ng-container matColumnDef="batchName">
+                      <th mat-header-cell *matHeaderCellDef>Batch Name </th>
+                      <td mat-cell *matCellDef="let element"> 
+                        <mat-select   (selectionChange)="changeBatch($event.value)" [(value)]="selectedTest" >
+                          <mat-option *ngFor="let batch of batchList" [value]="batch" >{{ batch }}</mat-option>
+                        </mat-select>
+                      </td>
+                    </ng-container>
                   <tr mat-header-row *matHeaderRowDef="displayedColumnsBatch"></tr>
 <tr mat-row *matRowDef="let row; columns: displayedColumnsBatch;"></tr>
                 </table>

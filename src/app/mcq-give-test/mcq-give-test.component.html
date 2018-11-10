@@ -9,8 +9,12 @@
 </div>
 <div *ngIf="counter < test.tests.length;then exam else finalSubmit"></div>
 </div>
-
-<div class="mainContent" *ngIf="marks >= 0 || timeleft<=0.0" >
+<mat-progress-spinner *ngIf="!testStarted"
+        class="example-margin"
+        [color]="primary"        
+        [value]="50">
+    </mat-progress-spinner>
+<div class="mainContent" *ngIf="(marks >= 0 || timeleft<=0.0) && testStarted" >
   <mat-card class="test-card-result">
       <mat-card-content >
         <div class="result-line">

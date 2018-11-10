@@ -13,7 +13,7 @@ import {map, startWith} from 'rxjs/operators';
   styleUrls: ['./user-det.component.css']
 })
 export class UserDetComponent implements OnInit {
-  displayedColumnsBatch: string[] = ['email', 'name', 'approval', 'lastLogin'];
+  displayedColumnsBatch: string[] = ['email', 'name', 'approval', 'lastLogin','batchName'];
   dataSourceBatch =  new MatTableDataSource(); 
   selectedTest:String='';
 batchList:{}[]=[]
@@ -34,6 +34,7 @@ batchList:{}[]=[]
   getUserDetail(selected){
     this._restService.getUserDetails(selected).subscribe(
       data => {
+        this.selectedTest=selected
        this.dataSourceBatch.data =data['user'];
       // this.percentile= data[' percentile'];
         return true;
@@ -42,6 +43,30 @@ batchList:{}[]=[]
         this.router.navigate(['']);
       }
    );
+  }
+
+  changeBatch(selected){
+    this._restService.changeBatch(selected).subscribe(
+      data=>{
+        this._restService.getUserDetails(selected).subscribe(
+          data => {
+            this.selectedTest=selected
+           this.dataSourceBatch.data =data['user'];
+          // this.percentile= data[' percentile'];
+          this.snackBar.open(data['success'], 'Dismiss', {
+            duration: 5000,
+          });
+          },
+          error => {
+            this.router.navigate(['']);
+          });
+      },
+      error=>{
+        this.snackBar.open(error['error'], 'Dismiss', {
+          duration: 5000,
+        });
+      }
+    )
   }
 
 }

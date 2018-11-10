@@ -1,6 +1,7 @@
 export class AssignTest {
     constructor(
     testName: string,
-    email:string
+    email:string,
+    batchName:string
     ){}
 }

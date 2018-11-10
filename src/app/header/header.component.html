@@ -1,6 +1,7 @@
 <mat-toolbar role="heading" class="header">
   <div class="pageHeader">
     <img src="../../testzone/assets/CALOGO.jpg" class="oversize">
+    <!-- <img src="../../assets/CALOGO.jpg" class="oversize"> -->
     <span>Complete Analytics</span>
       <span *ngIf="token.getToken() && token.getIsAdmin()!='true'" class="menu">
           <button routerLink="/mcq" mat-button class="button">MCQ</button>
