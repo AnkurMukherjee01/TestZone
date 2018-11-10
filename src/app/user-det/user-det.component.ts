@@ -45,8 +45,8 @@ batchList:{}[]=[]
    );
   }
 
-  changeBatch(selected){
-    this._restService.changeBatch(selected).subscribe(
+  changeBatch(selected,email){
+    this._restService.changeBatch(selected,email).subscribe(
       data=>{
         this._restService.getUserDetails(selected).subscribe(
           data => {
