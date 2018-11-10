@@ -11,12 +11,12 @@ const httpOptions = {
 export class AuthService {
 
  // baseUrl: 'http://139.59.74.138/';
-  baseUrl: 'http://localhost:3000/';
+  baseUrl: 'https://completeanalytics.in/';
   constructor(private http: HttpClient) {
   }
 
   attemptAuth(loginDet:Login): Observable<object> {
-    return this.http.post('http://localhost:3000/api/login', JSON.stringify(loginDet),httpOptions);
+    return this.http.post('https://completeanalytics.in/api/login', JSON.stringify(loginDet),httpOptions);
   }
 
 }
