@@ -27,5 +27,5 @@
   
   <mat-error *ngIf="phNo.invalid && (phNo.dirty || phNo.touched)">PhoneNumber can not be empty</mat-error>
   <button mat-raised-button class="submitButton" (click)="updateEmpDet();" 
-  [disabled]="qualification || institute.invalid  || (yearsOfExperience || phNo.invalid )">Update Your Details</button>
+  [disabled]="qualification==''|| institute.invalid  ||  phNo.invalid ">Update Your Details</button>
 </form>
