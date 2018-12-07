@@ -6,6 +6,8 @@ import {Router,ActivatedRoute, Params,  } from '@angular/router';
 import {MatSnackBar, MatTabChangeEvent} from '@angular/material';
 import {FormControl} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
+import  {UserEntryDetComponent} from '../user-entry-det/user-entry-det.component'
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-user-det',
@@ -17,7 +19,7 @@ export class UserDetComponent implements OnInit {
   dataSourceBatch =  new MatTableDataSource(); 
   selectedTest:String='';
 batchList:{}[]=[]
-  constructor(private router: Router,private _restService: RestService,private snackBar: MatSnackBar) {  }
+  constructor(private router: Router,private _restService: RestService,private snackBar: MatSnackBar,public dialog: MatDialog) {  }
   @ViewChild(MatPaginator) paginator: MatPaginator;
   ngOnInit() {
     this.dataSourceBatch.paginator = this.paginator;
@@ -69,4 +71,17 @@ batchList:{}[]=[]
     )
   }
 
+  openStudentDetails(email){
+    let data=this.dataSourceBatch.data.filter(o=>o["email"]==email);
+    console.log(data)
+    this.dialog.open(UserEntryDetComponent, {
+      disableClose:false,
+     width: '50%',
+     height:'400px',
+     data: {phNo:data[0]["phNo"] ,
+       education:data[0]["education"],
+       exp:data[0]["exp"],
+       qualification:data[0]["qualification"]}
+   });
+  }
 }

@@ -27,6 +27,7 @@ import { QuestionCheckerComponent } from './question-checker/question-checker.co
 import { AdminStudentComponent } from './admin-student/admin-student.component';
 import { RankComponent } from './rank/rank.component';
 import { TestQuestionsComponent } from './test-questions/test-questions.component';
+import { UserEntryDetComponent } from './user-entry-det/user-entry-det.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { TestQuestionsComponent } from './test-questions/test-questions.componen
     QuestionCheckerComponent,
     AdminStudentComponent,
     RankComponent,
-    TestQuestionsComponent
+    TestQuestionsComponent,
+    UserEntryDetComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +64,7 @@ import { TestQuestionsComponent } from './test-questions/test-questions.componen
     AngularFontAwesomeModule
   ],
   entryComponents: [
-    TestQuestionsComponent
+    TestQuestionsComponent,UserEntryDetComponent
 ],
   providers: [RestService, AuthService,
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }

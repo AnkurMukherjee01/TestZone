@@ -1,0 +1,31 @@
+<h4>Please enter your details</h4>
+<form class="login-form" novalidate>
+  <mat-select placeholder="Your Qualification" name="qualification" [(ngModel)]="qualification">
+    <mat-option *ngFor="let qual of qualificationList" [value]="qual">
+      {{qual}}
+    </mat-option>
+  </mat-select>
+
+  <input matInput type="text" placeholder="University/Institute" name="institute" [(ngModel)]="education" required  #institute="ngModel"/>
+  
+  <mat-error *ngIf="institute.invalid && (institute.dirty || institute.touched)">University/Institute name can not be empty</mat-error>
+
+  <!-- <input matInput type="text" placeholder="years Of Experience"  [(ngModel)]="yearsOfExperience" required  #yoe="ngModel"/> -->
+  <mat-select placeholder="Years Of Experience" name="yoe" [(ngModel)]="yearsOfExperience" class="exp">
+      <mat-option *ngFor="let dummy of ' '.repeat(31).split(''), let x = index" [value]="x">
+        {{x}}
+      </mat-option>
+    </mat-select>
+    <mat-select placeholder="Months" name="moe" [(ngModel)]="monthsOfExperience" class="exp">
+        <mat-option *ngFor="let dummy of ' '.repeat(13).split(''), let x = index" [value]="x">
+          {{x}}
+        </mat-option>
+      </mat-select>
+  <!-- <mat-error *ngIf="yoe.invalid && (yoe.dirty || yoe.touched)">Years of Experience can not be empty</mat-error> -->
+
+  <input matInput type="text" placeholder="Mobile Number" name="phNo" [(ngModel)]="phoneNumber" required  #phNo="ngModel"/>
+  
+  <mat-error *ngIf="phNo.invalid && (phNo.dirty || phNo.touched)">PhoneNumber can not be empty</mat-error>
+  <button mat-raised-button class="submitButton" (click)="updateEmpDet();" 
+  [disabled]="qualification || institute.invalid  || (yearsOfExperience || phNo.invalid )">Update Your Details</button>
+</form>

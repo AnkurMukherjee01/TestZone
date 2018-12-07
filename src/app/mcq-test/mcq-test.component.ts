@@ -6,7 +6,8 @@ import { LoginComponent } from "../login/login.component";
 import {MCQ} from '../mcq';
 import {Router,ActivatedRoute, Params,  } from '@angular/router';
 import {TokenStorage} from '../token.storage';
-
+import {MatDialog} from '@angular/material';
+import  {UserEntryDetComponent} from '../user-entry-det/user-entry-det.component'
 
 @Component({
   selector: 'app-mcqtest',
@@ -25,14 +26,26 @@ export class McqTestComponent implements OnInit {
   percentile:String;
   private sub: Subscription;
   
-  constructor(private router: Router,private _restService: RestService,private token: TokenStorage,private route: ActivatedRoute) { }
+  constructor(private router: Router,private _restService: RestService,private token: TokenStorage,private route: ActivatedRoute,public dialog: MatDialog) { }
 
   ngOnInit() {
     this.email = this.route.snapshot.paramMap.get('email');
    
     this._restService.mcq(this.email).subscribe(
       data => {
- 
+
+ if(!data["phno"] || !data["education"] || !data["exp"] || !data["qualification"]){
+
+   const dialogRef =this.dialog.open(UserEntryDetComponent, {
+     disableClose:true,
+    width: '50%',
+    height:'400px',
+    data: {phNo:data["phno"] ,
+      education:data["education"],
+      exp:data["exp"],
+      qualification:data["qualification"]}
+  });
+ }
        this.dataSource.data =data['testDet'].reverse();
        this.testNameList= (data['testDet'].filter(x => x.marks >-1).map(y=>y.testName)).filter(function (el, index, array) { 
         return array.indexOf (el) == index;
@@ -49,6 +62,7 @@ export class McqTestComponent implements OnInit {
 // filterItemsOfType(type){
 //   return this.dataSource.data.filter(x => x.marks == type);
 // }
+
 start(element){
   this.router.navigate(['/mcqTest',element.testName,element.assigneddate]);
 }

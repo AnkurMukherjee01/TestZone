@@ -1,0 +1,13 @@
+
+.submitButton{
+    background-color: #0080ca;
+    float:right;
+    text-align: center;
+    width: 200px;
+    color:white;
+}
+
+.exp{
+    width:50%;
+    display:inline-block;
+}

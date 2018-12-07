@@ -12,3 +12,6 @@ td.mat-cell, .mat-option-text,.mat-select-value{
     color:rgb(44, 99, 201) ;
     font-size:16px;
 }
+.link{
+    cursor: pointer;
+}

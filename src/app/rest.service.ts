@@ -121,5 +121,8 @@ export class RestService {
     assignTestBatch(batchName:String,testName:string){
         return this.http.post('https://completeanalytics.in/api/assigntestbybatch',JSON.stringify({batchName:batchName,test:testName}),httpOptions);
     }
+    updateUserDet(qualification:String,education:string,phNo:string,yearOfExp:string){
+        return this.http.post('https://completeanalytics.in/api/updateUserDet',JSON.stringify({qualification:qualification,education:education,phno:phNo,exp:yearOfExp}),httpOptions);
+    }
 }
 
