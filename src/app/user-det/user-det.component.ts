@@ -71,6 +71,32 @@ batchList:{}[]=[]
     )
   }
 
+  changeApproval(selected,email){
+    this._restService.changeApproval(selected,email).subscribe(
+      data=>{
+        // this._restService.getUserDetails(selected).subscribe(
+        //   data => {
+            
+        //    this.dataSourceBatch.data =data['user'];
+        //   // this.percentile= data[' percentile'];
+        //   // this.snackBar.open(data['success'], 'Dismiss', {
+        //   //   duration: 5000,
+          
+        //   },
+        //   error => {
+        //     this.router.navigate(['']);
+        //   });
+          this.snackBar.open(data['success'], 'Dismiss', {
+            duration: 5000,
+          });
+      },
+      error=>{
+        this.snackBar.open(error['error'], 'Dismiss', {
+          duration: 5000,
+        });
+      }
+    )
+  }
   openStudentDetails(email){
     let data=this.dataSourceBatch.data.filter(o=>o["email"]==email);
     console.log(data)

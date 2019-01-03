@@ -4,7 +4,8 @@ import { McqTestComponent } from "./mcq-test/mcq-test.component";
 import { HomeComponent } from "./home/home.component";
 import {AdminComponent} from "./admin/admin.component";
 import { McqGiveTestComponent } from "./mcq-give-test/mcq-give-test.component";
-import {AdminStudentComponent} from './admin-student/admin-student.component'
+import {AdminStudentComponent} from './admin-student/admin-student.component';
+import { ReportComponent } from "./report/report.component";
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path:'adminstudent',
     component:AdminStudentComponent
+  },
+  {
+    path:'report',
+    component:ReportComponent
   }
 ];
 

@@ -40,7 +40,7 @@ export class McqGiveTestComponent implements OnInit {
   answeredTest: number = 0;
   testStarted:boolean=false;
   //testUnAuthorized:Boolean=false;
-
+testEnded:boolean=false;
 
   globalListenFunc: Function;
 
@@ -128,7 +128,9 @@ export class McqGiveTestComponent implements OnInit {
             else {
               this.answers.push(new Answers(data["tst"][0]["tests"][i].question,data["tst"][0]["tests"][i].image, "", "NA",data["tst"][0]["tests"][i]._id));
             }
-
+            if(i==data["tst"][0]["tests"].length-1){
+              this.testStarted=true;
+            }
 
           }
           
@@ -139,12 +141,15 @@ export class McqGiveTestComponent implements OnInit {
           for (var i = 0; i < data["tst"][0]["tests"].length; i++) {
             this.answers.push(new Answers(data["tst"][0]["tests"][i].question,data["tst"][0]["tests"][i].image, "", "NA",data["tst"][0]["tests"][i]._id));
           }
+          if(i==data["tst"][0]["tests"].length-1){
+            this.testStarted=true;
+          }
         }
 //this.comments=data["tst"][0]["tests"].map(o=>o["comments"])
         //  this.dataSource.data =data['testDet'];
         //   return true;
         // this.timeleft=data["tst"][0]["testDuration"]*60000- 
-//this.testStarted=true;
+
       },
       error => {
         console.error(error.data);
@@ -214,7 +219,7 @@ export class McqGiveTestComponent implements OnInit {
         this.marks = data['marks'];
         this.totalMarks = data['totalMarks'];
         this.comments = this.test["tests"].filter(p=>data['correctQstnId'].indexOf(p._id)<0).map(o=>o.comments)
-        // z
+        this.testEnded=true;       // z
       },
       error => {
         console.error(error.data);

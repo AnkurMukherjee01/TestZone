@@ -10,7 +10,7 @@ padding-left: 30%;
 padding-right:5px;
 }
 .header {
-    font-size: 40px;
+    font-size: 30px;
     background: #00ae7b;
     background: linear-gradient(45deg,#00ae7b,#0081bf);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00ae7b",endColorstr="#0081bf",GradientType=1);

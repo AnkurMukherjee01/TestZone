@@ -1,0 +1,11 @@
+.cards{
+    padding:20px;
+}
+
+.report-header{
+    font-size:30px;
+    color:rgb(1, 53, 150);
+}
+.mat-header-cell{
+    color: rgb(1, 53, 150);
+}

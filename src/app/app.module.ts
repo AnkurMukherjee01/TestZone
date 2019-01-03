@@ -28,6 +28,7 @@ import { AdminStudentComponent } from './admin-student/admin-student.component';
 import { RankComponent } from './rank/rank.component';
 import { TestQuestionsComponent } from './test-questions/test-questions.component';
 import { UserEntryDetComponent } from './user-entry-det/user-entry-det.component';
+import { ReportComponent } from './report/report.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { UserEntryDetComponent } from './user-entry-det/user-entry-det.component
     AdminStudentComponent,
     RankComponent,
     TestQuestionsComponent,
-    UserEntryDetComponent
+    UserEntryDetComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,

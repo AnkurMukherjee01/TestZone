@@ -11,6 +11,7 @@
       <span *ngIf="token.getToken() && token.getIsAdmin()=='true'" class="menu">
         <button routerLink="/admin" mat-button class="button">Approval</button>
         <button routerLink="/adminstudent" mat-button class="button">Student</button>
+        <button routerLink="/report" mat-button class="button">Report</button>
         <i class="fa fa-sign-out" aria-hidden="true" (click)="signout()"></i>
       </span>
    </div>
