@@ -1,7 +1,7 @@
 import { Component, OnInit ,ViewChild} from '@angular/core';
 import {TokenStorage} from '../token.storage'
 import {Router} from '@angular/router';
-import {MatSort, MatTableDataSource} from '@angular/material';
+import {MatSort, MatTableDataSource, MatSnackBar,} from '@angular/material';
 import { RestService } from "../rest.service";
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatIconRegistry} from '@angular/material';
@@ -19,11 +19,13 @@ export class ReportComponent implements OnInit {
   testName:string;
   marks:string
   displayedColumnsReport: string[] = ['email', 'name','phNo', 'lastLogin', 'marks','exp'];
+  displayedColumnsEnquiry: string[] = ['email', 'name','phoneNo', 'course', 'subject','message','createdtime'];
   testList: string[];
   dataSourceReport = new MatTableDataSource();
+  dataSourceEnquiry = new MatTableDataSource();
   reportData
   Math:any;
-  constructor(private token:TokenStorage,private router: Router, private _restService: RestService) { }
+  constructor(private token:TokenStorage,private router: Router, private _restService: RestService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     if(!this.token.getToken() ||!(this.token.getToken() && this.token.getIsAdmin()=="true")){
@@ -63,5 +65,27 @@ export class ReportComponent implements OnInit {
       }
     );
     }
+  }
+
+  getEnquiry(value){
+    var date=new Date()
+    if(value!="All"){     
+      date.setMonth(date.getMonth() - value);
+    }
+    else{
+      date = new Date(2018, 1,1,0,0,0,0);
+    }
+    this._restService.getEnquiry(date).subscribe(
+      data =>{
+        this.dataSourceEnquiry.data = data["student"];
+        this.dataSourceReport.sort = this.sort;
+        return true;
+      },
+      error => {
+        this.snackBar.open(error.error["err"], 'Dismiss', {
+          duration: 5000,
+        });
+      }
+    )
   }
 }

@@ -140,10 +140,11 @@ testEnded:boolean=false;
           this.currentQuestion = data["tst"][0]["tests"][this.counter];
           for (var i = 0; i < data["tst"][0]["tests"].length; i++) {
             this.answers.push(new Answers(data["tst"][0]["tests"][i].question,data["tst"][0]["tests"][i].image, "", "NA",data["tst"][0]["tests"][i]._id));
+            if(i==data["tst"][0]["tests"].length-1){
+              this.testStarted=true;
+            }
           }
-          if(i==data["tst"][0]["tests"].length-1){
-            this.testStarted=true;
-          }
+         
         }
 //this.comments=data["tst"][0]["tests"].map(o=>o["comments"])
         //  this.dataSource.data =data['testDet'];
